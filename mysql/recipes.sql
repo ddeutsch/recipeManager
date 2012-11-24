@@ -25,3 +25,43 @@ CREATE TABLE Cabinet
 INSERT INTO Cabinet VALUES ('ddeutsch', 'eggs');
 INSERT INTO Cabinet VALUES ('ddeutsch', 'milk');
 INSERT INTO Cabinet VALUES ('ddeutsch', 'flour');
+
+DROP TABLE IF EXISTS Recipes;
+CREATE TABLE Recipes
+(
+    RecipeName VARCHAR(32) primary key,
+    Servings VARCHAR(16),
+    CookTime VARCHAR(16),
+    Instructions BLOB
+);
+
+INSERT INTO Recipes VALUES ('Chocolate Cheesecake', '6-8', '45 minutes', 'Instructions go here. This is a set of instructions for chocolate cheesecake.');
+INSERT INTO Recipes VALUES ('Normal Cake', '5-10', '30 minutes', 'blah blah blah blah instructions!!');
+INSERT INTO Recipes VALUES ('Chicken Parmesan', '3-4', '50 minutes', 'Preheat an oven to 450 degrees F (230 degrees C).
+Place chicken breasts between two sheets of heavy plastic (resealable freezer bags work well) on a solid, level surface. Firmly pound chicken with the smooth side of a meat mallet to a thickness of 1/2-inch. Season chicken thoroughly with salt and pepper.
+Beat eggs in a shallow bowl and set aside.
+Mix bread crumbs and 1/2 cup Parmesan in a separate bowl, set aside.
+Place flour in a sifter or strainer; sprinkle over chicken breasts, evenly coating both sides.
+Dip flour coated chicken breast in beaten eggs. Transfer breast to breadcrumb mixture, pressing the crumbs into both sides. Repeat for each breast. Set aside breaded chicken breasts for about 15 minutes.
+Heat 1 cup olive oil in a large skillet on medium-high heat until it begins to shimmer. Cook chicken until golden, about 2 minutes on each side. The chicken will finish cooking in the oven.
+Place chicken in a baking dish and top each breast with about 1/3 cup of tomato sauce. Layer each chicken breast with equal amounts of mozzarella cheese, fresh basil, and provolone cheese. Sprinkle 1 to 2 tablespoons of Parmesan cheese on top and drizzle with 1 tablespoon olive oil.
+Bake in the preheated oven until cheese is browned and bubbly, and chicken breasts are no longer pink in the center, 15 to 20 minutes. An instant-read thermometer inserted into the center should read at least 165 degrees F (74 degrees C).');
+
+DROP TABLE IF EXISTS Ingredients;
+CREATE TABLE Ingredients
+(
+    RecipeName VARCHAR(64),
+    Ingredient VARCHAR(32)
+);
+
+INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'milk');
+INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'eggs');
+INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'flour');
+
+INSERT INTO Ingredients VALUES ('Normal Cake', 'milk');
+
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'chicken');
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'cheese');
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'bread crumbs');
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'pasta');
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'pasta sauce');

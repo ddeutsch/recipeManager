@@ -41,8 +41,8 @@
 	
 	// DM : Huh??
 	$query = "SELECT U.FName, U.LName
-		  FROM Users U, CurrentUser CU
-		  WHERE U.Username = CU.Username";
+		  FROM Users U
+		  WHERE U.Username = '".$_SESSION['username']."'";
 	
 	$result = mysql_query($query);
 	$row = mysql_fetch_array($result);

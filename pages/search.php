@@ -1,5 +1,6 @@
 <?php
   session_start();
+  $_SESSION['searchTerm'] = $_POST['recipeName'];
 ?>
 
 <html>
@@ -7,6 +8,10 @@
     <!--<meta http-equiv="refresh" content="1;url=results.php"> -->
   </head>
   <body>
+    <p>I was thinking that this php script could do the searching. Then it would redirect to displayRecipeResults.php which would
+       then display the results that are "like" the search term. I've added this link below to simulate doing the searching. We would
+       actually just do a redirect.</p>
+    <p>Click <a href="displayRecipeResults.php">here</a> to see the search results.</p>
     
     <?php
       //include(crawler.php); // Implement the crawler here then simply include
@@ -53,8 +58,6 @@
       echo "Bytes received: ".$report->bytes_received." bytes".$lb; 
       echo "Process runtime: ".$report->process_runtime." sec".$lb;
       
-      
-      echo "Click <a href=\"displayRecipeResults.php\">here</a> to go to the recipe display page";
     ?>
     
   </body>
