@@ -3,7 +3,7 @@ session_start(); // Initiate session data log
 include 'conf.php';
 include 'open.php';
 
-$mysqli = new mysqli("localhost", "cs41512_recipe_manager",
+$mysqli = new mysqli("localhost", "cs41512_recman",
     "pass", "cs41512_recipe_db");
 
 if (mysqli_connect_errno())

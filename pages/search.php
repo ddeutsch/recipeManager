@@ -54,7 +54,7 @@
       echo "Process runtime: ".$report->process_runtime." sec".$lb;
       
       
-      
+      echo "Click <a href=\"displayRecipeResults.php\">here</a> to go to the recipe display page";
     ?>
     
   </body>

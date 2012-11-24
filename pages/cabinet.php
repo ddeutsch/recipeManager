@@ -20,7 +20,7 @@
 
     <?php
 	$db_host = 'localhost:8888';
-	$db_user = 'cs41512_recipe_manager';
+	$db_user = 'cs41512_recman';
 	$db_pass = 'pass';
 	$db_name = 'cs41512_recipe_db';
     

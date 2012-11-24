@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     session_start();
 ?>
 
@@ -26,7 +26,7 @@
     <?
     
 	$db_host = 'localhost:8888';
-	$db_user = 'cs41512_recipe_manager';
+	$db_user = 'cs41512_recman';
 	$db_pass = 'pass';
 	$db_name = 'cs41512_recipe_db';
 
@@ -47,7 +47,7 @@
 	$result = mysql_query($query);
 	$row = mysql_fetch_array($result);
 
-	printf("<h3>Welcome, %s %s!", $row['FName'], $row['LName']);
+	printf("<h3>Welcome, %s %s!</h3>", $row['FName'], $row['LName']);
     ?>
 
     <form action="search.php" method="post">
