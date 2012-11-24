@@ -1,4 +1,4 @@
-DROP TABLE Users;
+DROP TABLE IF EXISTS Users;
 CREATE TABLE Users
 (
     Username VARCHAR(16) primary key,
@@ -9,13 +9,13 @@ CREATE TABLE Users
 
 INSERT INTO Users VALUES ('ddeutsch', ' ', 'Dan', 'Deutsch');
 
-DROP TABLE CurrentUser;
+DROP TABLE IF EXISTS CurrentUser;
 CREATE TABLE CurrentUser
 (
     Username VARCHAR(16) primary key
 );
 
-DROP TABLE Cabinet;
+DROP TABLE IF EXISTS Cabinet;
 CREATE TABLE Cabinet
 (
     Username VARCHAR(16),

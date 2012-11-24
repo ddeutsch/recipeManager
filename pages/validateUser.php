@@ -1,9 +1,11 @@
-<?
+<?php
+session_start(); // Initiate session data log
+
 include 'conf.php';
 include 'open.php';
 
-$mysqli = new mysqli("dbase.cs.jhu.edu", "415_12_ddeutsc4",
-    "saturnus!Spun-out", "cs41512_ddeutsc4_db");
+$mysqli = new mysqli("localhost", "cs41512_recipe_manager",
+    "pass", "cs41512_recipe_db");
 
 if (mysqli_connect_errno())
 {
@@ -32,7 +34,8 @@ if ($mysqli->multi_query("CALL ValidateUser('".$username."','".$password."');"))
 		    printf("Sorry, invalid username or password");
 		else
 		{
-		    $mysqli->multi_query("CALL ChangeCurrentUser('".$username."')");
+		    //$mysqli->multi_query("CALL ChangeCurrentUser('".$username."')");
+		    $_SESSION['username'] = $username; // store username in session data
 		    header('Location: homePage.php');
 		}
 		$result->close();

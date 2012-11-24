@@ -1,9 +1,10 @@
-<?
+<?php
+session_start(); // Initiate session data log
 include 'conf.php';
 include 'open.php';
 
-$mysqli = new mysqli("dbase.cs.jhu.edu", "415_12_ddeutsc4",
-    "saturnus!Spun-out", "cs41512_ddeutsc4_db");
+$mysqli = new mysqli("localhost", "cs41512_recipe_manager",
+    "pass", "cs41512_recipe_db");
 
 if (mysqli_connect_errno())
 {
@@ -16,6 +17,7 @@ $lname = $_POST["lname"];
 $username = $_POST["username"];
 $password = $_POST["password"];
 
+$_SESSION['username'] = $username; // store username in session data
 
 if ($mysqli->multi_query("CALL CreateUser('".$username."','".$password."', '".$fname."', '".$lname."');"))
 {

@@ -1,0 +1,17 @@
+- addIngredient.php hangs on insert
+- DM: disallow users getting into site without credentials
+
+Optionally delete session data upon logout:
+<?php
+  session_start();  
+  if(isset($_SESSION['cart']))
+    unset($_SESSION['cart']); 
+?>
+
+OR 
+
+<?php
+  session_start(); 
+  session_destroy();
+?>
+
