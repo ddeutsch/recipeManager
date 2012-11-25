@@ -36,10 +36,40 @@
             
             printf("<h2>%s</h2>", $recipe);
 
-            //$query = "SELECT"
-            
-            //$result = mysql_query($query);
-
+	    // Recipe information
+            $query = "SELECT *
+		     FROM Recipes R
+		     WHERE R.RecipeName = \"$recipe\"";
+            $result = mysql_query($query);
+	    
+	    $row = mysql_fetch_array($result);
+	    
+	    printf("<p>Servings: %s</p>", $row['Servings']);
+	    printf("<p>Time: %s</p>", $row['CookTime']);
+	    
+	    // Ingredient information
+	    $query = "SELECT *
+		      FROM Ingredients I
+		      WHERE I.RecipeName = \"$recipe\"";
+	    $result = mysql_query($query);
+	    
+	    printf("Ingredients:");
+	    printf("<ul>");
+	    while ($row = mysql_fetch_array($result))
+	    {
+		printf("<li>%s</li>", $row['Ingredient']);
+	    }
+	    printf("</ul>");
+	    
+	    // Instructions information
+	    $query = "SELECT *
+		      FROM Instructions I
+		      WHERE I.RecipeName = \"$recipe\"";
+	    $result = mysql_query($query);
+	    $row = mysql_fetch_array($result);
+	    
+	    printf("Instructions:");
+	    printf("<p>%s</p>", $row['Instructions']);
         ?>
         
     </body>
