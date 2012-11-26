@@ -1,4 +1,3 @@
-- addIngredient.php hangs on insert
 - DM: disallow users getting into site without credentials
 
 Optionally delete session data upon logout:
@@ -15,3 +14,4 @@ OR
   session_destroy();
 ?>
 
+- DM: Remove CookTime attribute from  Recipes

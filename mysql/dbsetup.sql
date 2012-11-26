@@ -1,5 +1,6 @@
 -- Acess mysql through MAMP for local use
 -- Download http://www.mamp.info/en/downloads/index.html
+-- Start mysql & apache servers via MAMP gui
 -- /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
 
 -- Create a newuser for this project

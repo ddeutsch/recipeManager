@@ -42,20 +42,21 @@ DROP TABLE IF EXISTS Ingredients;
 CREATE TABLE Ingredients
 (
     RecipeName VARCHAR(64),
-    Ingredient VARCHAR(32)
+    Ingredient VARCHAR(32), -- DM Edit
+    Quantity VARCHAR(32) -- DM Edit - Reason for VARCHAR is it may be teaspoon/tablespoon etc
 );
 
-INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'milk');
-INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'eggs');
-INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'flour');
+INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'milk','2');
+INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'eggs','2');
+INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'flour','2 cups');
 
-INSERT INTO Ingredients VALUES ('Normal Cake', 'milk');
+INSERT INTO Ingredients VALUES ('Normal Cake', 'milk','10 ounces');
 
-INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'chicken');
-INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'cheese');
-INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'bread crumbs');
-INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'pasta');
-INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'pasta sauce');
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'chicken', '1 whole breast');
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'cheese', '1 lb');
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'bread crumbs','2 tbsp');
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'pasta','1 full box');
+INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'pasta sauce','16 ounces');
 
 DROP TABLE IF EXISTS Instructions;
 CREATE TABLE Instructions

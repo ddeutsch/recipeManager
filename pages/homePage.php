@@ -39,7 +39,6 @@
 
 	mysql_select_db($db_name, $conn);
 	
-	// DM : Huh??
 	$query = "SELECT U.FName, U.LName
 		  FROM Users U
 		  WHERE U.Username = '".$_SESSION['username']."'";

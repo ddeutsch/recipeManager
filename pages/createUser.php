@@ -32,8 +32,7 @@ if ($mysqli->multi_query("CALL CreateUser('".$username."','".$password."', '".$f
 		printf("Sorry, Username already exists");
 	    else
 	    {
-		$mysqli->multi_query("CALL ChangeCurrentUser('".$username."')");
-		
+		//$mysqli->multi_query("CALL ChangeCurrentUser('".$username."')");
 		header('Location: homePage.php');
 	    }
 	    $result->close();
