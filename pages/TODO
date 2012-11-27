@@ -14,4 +14,3 @@ OR
   session_destroy();
 ?>
 
-- DM: Remove CookTime attribute from  Recipes

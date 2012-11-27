@@ -9,17 +9,17 @@ CREATE TABLE Users
 
 INSERT INTO Users VALUES ('ddeutsch', ' ', 'Dan', 'Deutsch');
 
-DROP TABLE IF EXISTS CurrentUser;
-CREATE TABLE CurrentUser
-(
-    Username VARCHAR(16) primary key
-);
+--DROP TABLE IF EXISTS CurrentUser;
+--CREATE TABLE CurrentUser
+--(
+--    Username VARCHAR(16) primary key
+--);
 
 DROP TABLE IF EXISTS Cabinet;
 CREATE TABLE Cabinet
 (
     Username VARCHAR(16),
-    Ingredient VARCHAR(32)
+    Ingredient VARCHAR(100)
 );
 
 INSERT INTO Cabinet VALUES ('ddeutsch', 'eggs');
@@ -29,21 +29,20 @@ INSERT INTO Cabinet VALUES ('ddeutsch', 'flour');
 DROP TABLE IF EXISTS Recipes;
 CREATE TABLE Recipes
 (
-    RecipeName VARCHAR(32) primary key,
-    Servings VARCHAR(16),
-    CookTime VARCHAR(16)
+    RecipeName VARCHAR(100) primary key,
+    Servings VARCHAR(64)
 );
 
-INSERT INTO Recipes VALUES ('Chocolate Cheesecake', '6-8', '45 minutes');
-INSERT INTO Recipes VALUES ('Normal Cake', '5-10', '30 minutes');
-INSERT INTO Recipes VALUES ('Chicken Parmesan', '3-4', '50 minutes');
+INSERT INTO Recipes VALUES ('Chocolate Cheesecake', '6-8');
+INSERT INTO Recipes VALUES ('Normal Cake', '5-10');
+INSERT INTO Recipes VALUES ('Chicken Parmesan', '3-4');
 
 DROP TABLE IF EXISTS Ingredients;
 CREATE TABLE Ingredients
 (
-    RecipeName VARCHAR(64),
-    Ingredient VARCHAR(32), -- DM Edit
-    Quantity VARCHAR(32) -- DM Edit - Reason for VARCHAR is it may be teaspoon/tablespoon etc
+    RecipeName VARCHAR(100),
+    Ingredient VARCHAR(100), -- DM Edit
+    Quantity VARCHAR(100) -- DM Edit - Reason for VARCHAR is it may be teaspoon/tablespoon etc
 );
 
 INSERT INTO Ingredients VALUES ('Chocolate Cheesecake', 'milk','2');
@@ -61,7 +60,7 @@ INSERT INTO Ingredients VALUES ('Chicken Parmesan', 'pasta sauce','16 ounces');
 DROP TABLE IF EXISTS Instructions;
 CREATE TABLE Instructions
 (
-    RecipeName VARCHAR(64) primary key,
+    RecipeName VARCHAR(100) primary key,
     Instructions TEXT
 );
 
