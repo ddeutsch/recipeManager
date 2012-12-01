@@ -1,7 +1,43 @@
 <?php
+    include('simple_html_dom.php');
+    include('AllRecipesParser.php');
     session_start();
-    // assumption is we have a webpage and are ready to parse
-      include('simple_html_dom.php');
+    
+    $allRecipesSearchUrl = "http://allrecipes.com/search/default.aspx?wt=";
+    
+    $searchTerm = "chicken";
+    
+    $html = file_get_html($allRecipesSearchUrl . $searchTerm);
+      
+    $allRecipes = new AllRecipesParser;
+            
+    foreach($html->find('h3.resultTitle') as $result)
+    {
+        $result = str_replace("'", "", str_replace(" ", "-", trim($result->plaintext)));
+        echo $result . "<br>";
+        $allRecipes->parse("http://allrecipes.com/recipe/" . $result);
+    }
+          
+      
+      
+      
+      
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+      
+      
+      /*
       $html = file_get_html('http://www.myrecipes.com/recipe/italian-chicken-artichokes-10000000635678/'); // TODO : DM
       
       foreach($html->find('meta name="recipe_name"') as $recipeName) {
@@ -10,7 +46,6 @@
     
     echo $recipeNameContent
     
-    /*
 <meta name="recipe_name" content="Roast Chicken with Balsamic Bell Peppers" />
 
  <li itemprop="ingredient" itemscope itemtype="http://data-vocabulary.org/RecipeIngredient">

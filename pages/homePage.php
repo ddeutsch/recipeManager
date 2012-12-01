@@ -49,7 +49,7 @@
 	printf("<h3>Welcome, %s %s!</h3>", $row['FName'], $row['LName']);
     ?>
 
-    <form action="search.php" method="post">
+    <form action="search2.php" method="post">
         Search for recipes: <input type="text" name="recipeName" /> <br />
         <input type="submit" value="Search" onclick="showSpinner();" />
     </form>
@@ -69,5 +69,6 @@
     <a href="allRecipesParser.php">AllRecipesParser</a> </br>
     <a href="parser.php">MyRecipesParser</a>
 
+    <a href="crawler.php">Perform search for "Chicken"</a>
 </body>
 </html>
