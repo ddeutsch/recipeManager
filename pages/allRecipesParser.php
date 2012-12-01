@@ -16,9 +16,9 @@
     
     // assumption is we have a webpage and we are ready to parse
       include('simple_html_dom.php');
-      $html = file_get_html('http://allrecipes.com/recipe/chicken-cordon-bleu-ii/detail.aspx?event8=1&prop24=SR_Title&e11=chicken&e8=Quick%20Search&event10=1&e7=Home%20Page');
+      //$html = file_get_html('http://allrecipes.com/recipe/chicken-cordon-bleu-ii/detail.aspx?event8=1&prop24=SR_Title&e11=chicken&e8=Quick%20Search&event10=1&e7=Home%20Page');
       //$html = file_get_html('http://allrecipes.com/recipe/frog-cupcakes/detail.aspx?event8=1&prop24=SR_Title&e11=cupcakes&e8=Quick%20Search&event10=1&e7=Recipe');
-      //$html = file_get_html('http://allrecipes.com/recipe/barbecued-beef/detail.aspx?event8=1&prop24=SR_Title&e11=beef&e8=Quick%20Search&event10=1&e7=Recipe');
+      $html = file_get_html('http://allrecipes.com/recipe/barbecued-beef/detail.aspx?event8=1&prop24=SR_Title&e11=beef&e8=Quick%20Search&event10=1&e7=Recipe');
 
       // For  Ingredients Table      
       $recipeName = array_shift($html->find("h1"));      
@@ -35,61 +35,50 @@
       {
         if ($span->id == "lblIngAmount")
         {
-          $amount = $span;
-          array_push($amountArray,$span);
-          echo "<h2>" . $amount . "</h2>";
+          $amount = $span->plaintext;
+          array_push($amountArray,$amount);
+          //echo "<h2>" . $amount . "</h2>";
         }
         
         if ($span->id == "lblIngName")
         {
-          $name = $span;
-          array_push($nameArray,$span);
-          echo "<h2>" . $name . "</h2>";
+          $name = $span->plaintext;
+          array_push($nameArray,$name);
+          //echo "<h2>" . $name . "</h2>";
         }
         
         if ($span->id =="lblYield")
         {
-            $servings = $span;
-            echo "<h2> Servings: " . $servings . "</h2>";
+            $servings = $span->plaintext;
+            //echo "<h2> Servings: " . $servings . "</h2>";
             
             // Insert Servings name into Ingredients table
-            $query = "INSERT INTO Recipes VALUES('".$recipeName. "','" .$servings->plaintext."')";
+            $query = "INSERT INTO Recipes VALUES('".$recipeName. "','" .$servings."')";
             mysql_query($query);
         }
         
       }
-      /*
+      
       for ($i=0; $i<sizeof($amountArray); $i++)
         {
             // Insert ingredient & recipe name into Ingredients table
-            $query = "INSERT INTO Ingredients VALUES('".$recipeName. "','" .$amountArray[$i]->plaintext."','" . $nameArray[$i]->plaintext."')";
-            mysql_query($query);
-            // echo $amountArray[$i] . " " . $nameArray[$i] . "<br>";
+            $query = "INSERT INTO Ingredients VALUES('".$recipeName. "','" .$nameArray[$i]."','" . $amountArray[$i]."')";
+            $result = mysql_query($query);
+            
+            //echo $amountArray[$i] . " " . $nameArray[$i] . "<br>";
         }
         
       // For  Instructions Table
-      // echo "<h3> Instructions </h3>";
-        foreach($html->find('span') as $instructions)
+      $allInstructions = '';
+      $i = 1;
+        foreach($html->find('span.plaincharacterwrap') as $instructions)
         {
-            if ($instructions->class == "plaincharacterwrap break")
-            {
-                
-               //$token = preg_split("[\d\. ]",$instructions->plaintext); // Get rid of bullets
-            }
+            $allInstructions = $allInstructions . $i . ": " . $instructions->plaintext . "<br>";
+            $i = $i + 1;
         }
-      
-      $finInstr = "";      
-      foreach($token as $t)
-      {  
-        $finInstr = $finInstr.$t; // Concatenate all instructions so they are a single item 
-      }
-        
-      // echo $finInstr;
-    
+            
       // Insert ingredient & recipe name into Ingredients table
         $query = "INSERT INTO Instructions VALUES
-              ('".$recipeName. "','" .$finInstr."')";
+              ('".$recipeName. "','" .$allInstructions."')";
         mysql_query($query);
-        
-    */
 ?>      

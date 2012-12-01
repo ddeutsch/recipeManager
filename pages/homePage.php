@@ -65,6 +65,9 @@
     <div style="position:absolute; left:153px; top: 100px;"> <img id="loadingImage"
         src="http://i1061.photobucket.com/albums/t473/dmhembe/MR-connectome/loading_zpsac6e6d22.gif"
         border="0" alt="loading" style="visibility:hidden;opacity:0.5"/> </div>
+    
+    <a href="allRecipesParser.php">AllRecipesParser</a> </br>
+    <a href="parser.php">MyRecipesParser</a>
 
 </body>
 </html>

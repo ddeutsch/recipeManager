@@ -45,7 +45,6 @@
 	    $row = mysql_fetch_array($result);
 	    
 	    printf("<p>Servings: %s</p>", $row['Servings']);
-	    printf("<p>Time: %s</p>", $row['CookTime']);
 	    
 	    // Ingredient information
 	    $query = "SELECT *

@@ -60,7 +60,7 @@
         {
         // Insert ingredient & recipe name into Ingredients table
         $query = "INSERT INTO Ingredients VALUES
-              ('".$recipeName. "','" .$amountArray[$i]->plaintext."','" . $nameArray[$i]->plaintext."')";
+              ('".$recipeName. "','" .$nameArray[$i]->plaintext."','" . $amountArray[$i]->plaintext."')";
         mysql_query($query);
         // echo $amountArray[$i] . " " . $nameArray[$i] . "<br>";
         }

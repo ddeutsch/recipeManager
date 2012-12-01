@@ -9,11 +9,11 @@ CREATE TABLE Users
 
 INSERT INTO Users VALUES ('ddeutsch', ' ', 'Dan', 'Deutsch');
 
---DROP TABLE IF EXISTS CurrentUser;
---CREATE TABLE CurrentUser
---(
---    Username VARCHAR(16) primary key
---);
+DROP TABLE IF EXISTS CurrentUser;
+#CREATE TABLE CurrentUser
+#(
+#    Username VARCHAR(16) primary key
+#);
 
 DROP TABLE IF EXISTS Cabinet;
 CREATE TABLE Cabinet
