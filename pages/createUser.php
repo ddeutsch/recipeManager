@@ -38,7 +38,7 @@ if ($mysqli->multi_query("CALL CreateUser('".$username."','".$password."', '".$f
 	    $result->close();
 	}
     } while ($mysqli->next_result());
-																			    
+
 }
 else
     printf("<br>Error: %s\n", $mysqli->error);

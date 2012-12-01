@@ -24,35 +24,24 @@
 	    $db_pass = 'pass';
 	    $db_name = 'cs41512_recipe_db';
     
-	    $conn = mysql_connect($db_host, $db_user, $db_pass);
-	    if (!$conn)
-	    {
-		echo "Error connecting to the database in homePage.php";
-		exit();
-	    }
-    
-	    mysql_select_db($db_name, $conn);
-		    
-	    $query = "SELECT R.RecipeName
-		      FROM Recipes R
-		      WHERE R.RecipeName LIKE '%".$_SESSION['searchTerm']."%'";
-	
-	    $result = mysql_query($query);
-    
-	    printf("<form action=\"displayRecipe.php\" method=\"post\">");
-    
-	    while ($row = mysql_fetch_array($result))
-	    {
-		printf("%s <input type=\"radio\" name=\"recipeName\" value=\"%s\" /><br />", $row['RecipeName'], $row['RecipeName']);
-	    }
-	    
-	    printf("<input type=\"submit\" value=\"See Recipe\" /></form>");
-	    printf("<br />");
-    
-    
-	    echo "</table>";
+            $mysqli = new mysqli("localhost", $db_user, $db_pass, $db_name);
+            
+            if (mysqli_connect_errno())
+              printf("Connect failed: %s<br>", mysqli_connect_errno());
+              
+            if ($mysqli->multi_query("CALL FindCabinetRecipes('".$_SESSION['username']."');"))
+            {
+              printf("<form action=\"displayRecipe.php\" method=\"post\">");
+
+              if ($result = $mysqli->store_result())
+              {
+                while ($row = $result->fetch_row())
+                  printf("%s <input type=\"radio\" name=\"recipeName\" value=\"%s\" /><br />", $row[0], $row[0]);
+              }
+              
+              printf("<input type=\"submit\" value=\"See Recipe\" /></form>");
+              printf("<br />");
+            }
 	?>
-    
-    
 </body>
 </html>

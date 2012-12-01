@@ -9,11 +9,8 @@ CREATE TABLE Users
 
 INSERT INTO Users VALUES ('ddeutsch', ' ', 'Dan', 'Deutsch');
 
+# We don't use this table anymore
 DROP TABLE IF EXISTS CurrentUser;
-#CREATE TABLE CurrentUser
-#(
-#    Username VARCHAR(16) primary key
-#);
 
 DROP TABLE IF EXISTS Cabinet;
 CREATE TABLE Cabinet
