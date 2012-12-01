@@ -16,7 +16,7 @@
     foreach($html->find('h3.resultTitle') as $result)
     {
         $result = str_replace("'", "", str_replace(" ", "-", trim($result->plaintext)));
-        echo $result . "<br>";
+        //echo $result . "<br>";
         $allRecipes->parse("http://allrecipes.com/recipe/" . $result);
         
         $count = $count + 1;
