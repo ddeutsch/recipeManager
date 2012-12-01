@@ -56,7 +56,7 @@
 	    printf("<ul>");
 	    while ($row = mysql_fetch_array($result))
 	    {
-		printf("<li>%s</li>", $row['Ingredient']);
+		printf("<li>%s %s</li>", $row['Quantity'], $row['Ingredient']);
 	    }
 	    printf("</ul>");
 	    

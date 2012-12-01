@@ -67,7 +67,7 @@
         border="0" alt="loading" style="visibility:hidden;opacity:0.5"/> </div>
     
     <a href="allRecipesParser.php">AllRecipesParser</a> </br>
-    <a href="parser.php">MyRecipesParser</a>
+    <a href="parser.php">MyRecipesParser</a> </br>
 
     <a href="crawler.php">Perform search for "Chicken"</a>
 </body>

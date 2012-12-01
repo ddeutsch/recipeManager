@@ -51,13 +51,7 @@
 	    printf("<input type=\"submit\" value=\"See Recipe\" /></form>");
 	    printf("<br />");
     
-    
 	    echo "</table>";
 	?>
-    
-    
-    
-    
     </body>
-
 </html>

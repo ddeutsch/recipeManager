@@ -24,6 +24,6 @@
             break;
     }
 
-    //echo "<a href='displayRecipeResults.php'>click here</a>";
-    header('Location: displayRecipeResults.php');
+    echo "<a href='displayRecipeResults.php'>click here</a>";
+    //header('Location: displayRecipeResults.php');
 ?>
