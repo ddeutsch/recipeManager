@@ -15,71 +15,93 @@
     <p>Click <a href="displayRecipeResults.php">here</a> to see the search results.</p>
     -->
     <?php
-      //include(crawler.php); // Implement the crawler here then simply include
 
-      //include("PHPCrawl_081/libs/PHPCrawler.class.php");
-      //include('MyRecipesParser.php');
-
+      // Searching in a cabinet
       /*
-      class MyCrawler extends PHPCrawler
+      $cabinetIngredients = getUsersCabinet($_SESSION['username']);
+      // $cabinetIngredients = array('chicken','broccoli','beef','beets','cheese');
+      foreach ($cabinetIngredients as $ci)
       {
-        function handleDocumentInfo(PHPCrawlerDocumentInfo $PageInfo)
+        $base_url = "http://www.myrecipes.com/$ci['Ingredient']-recipes/";
+        print $base_url."<br/>" ;
+      }
+      */
+      // Search ingredient term
+
+      include ("myRecipesParser.php");
+      //include('simple_html_dom.php'); // Cannot include this again if you have already done so
+
+      $searchIngredient = "beef";
+      // $allIng = array('beef', 'chicken','cheese','chocolate','egg','fish', 'fruit'
+      // 'rice','sausage','seafood','shrimp', 'soy','vegetable','pork','turkey')
+
+      $searchIngredient = $_SESSION['searchTerm'];
+
+      $base_url = "http://www.myrecipes.com/$searchIngredient-recipes/";
+
+      $html = file_get_html($base_url);
+      $recipeUrls = array(); //  Array to hold recipe urls
+      $recipeImages = array(); // Array to hold recipe Images
+
+      // Get recipe urls
+      foreach($html->find('.horizTout div.img a') as $fivestar)
+      {
+        array_push($recipeUrls,$fivestar->href);
+        // echo "Ingredient url = ". $fivestar->href."<br/>";
+
+         // Get recipe image urls
+        $fivestarHtml = str_get_html($fivestar);
+
+        foreach ($fivestarHtml->find('img') as $imgs)
         {
-
-
-          echo $PageInfo->url;
-          echo $PageInfo->content;
-
+          array_push($recipeImages, $imgs->src);
+          // echo "Image url = ". $imgs->src."<br/><br/>";
         }
       }
 
-      //<h3> Ingredients </h>
-      // recipe name: <h1 class="x4-headline" itemprop="name">Chicken Curry</h1>
-      //ingredients: itemprop="name"
+      for ($idx = 0; $idx < sizeof($recipeUrls); $idx++)
+      {
+        $parseObj = new MyRecipesParser;
+        $var = $parseObj->parse($recipeUrls[$idx]);
+        echo "Ingredient url = ". $var."<br/><br/><br/>";
+      }
 
+      //echo "<a href='displayRecipeResults.php'>click here</a>";
+      //header('Location: displayRecipeResults.php');
 
-      $crawler = new MyCrawler();
-      $crawler->setURL("http://www.myrecipes.com/");  // Root URL
-      $crawler->addContentTypeReceiveRule("#text/html#"); // What files to search
-      $crawler->setTrafficLimit(1000 * 1024); // While running locally 1MB limit
-      $crawler->addURLFilterRule("#\.(jpg|jpeg|gif|png)$# i"); // Things we don't want
-      $crawler->enableCookieHandling(true);
+      /**
+       *Untested
+       *Get a users cabinet
+       *@param string the username whose cabinet we want
+       *@return array the food items in a users cabinet
+       */
+      function getUsersCabinet($username)
+      {
+        if ( !isset($user))
+        {
+          $user = $_SESSION['username'];
+        }
 
-      $crawler->setFollowMode(3); //
+        $db_host = 'localhost:8888';
+        $db_user = 'cs41512_recman';
+        $db_pass = 'pass';
+        $db_name = 'cs41512_recipe_db';
 
+        $conn = mysql_connect($db_host, $db_user, $db_pass);
+        if (!$conn)
+        {
+            echo "Error connecting to the database in " .
+                __FILE__ . "getUsersCabinet";
+            exit();
+        }
 
-      $crawler->go(); // Launch crawl
-      //$crawler->goMultiProcessed(3, PHPCrawlerMultiProcessModes::MPMODE_PARENT_EXECUTES_USERCODE);// unix-linux only
-      $report = $crawler->getProcessReport();
+        mysql_select_db($db_name, $conn);
 
-      if (PHP_SAPI == "cli") $lb = "\n";
-      else $lb = "<br />";
-
-      echo "Summary:".$lb;
-      echo "Links followed: ".$report->links_followed.$lb;
-      echo "Documents received: ".$report->files_received.$lb;
-      echo "Bytes received: ".$report->bytes_received." bytes".$lb;
-      echo "Process runtime: ".$report->process_runtime." sec".$lb;
-      */
-
-    include ("myRecipesParser.php");
-    /*
-    $ingredient = "";
-    //$ingredient = $_SESSION['searchTerm'];
-    $cabinetIngredients = array('chicken','broccoli','beef','beets','cheese');
-    foreach ($cabinetIngredients as $ci)
-    {
-      $base_url = "http://www.myrecipes.com/$ci-recipes/";
-      print $base_url."<br/>" ;
-    }
-    */
-
-
-    $parseObj = new MyRecipesParser;
-    $url_address = 'http://www.myrecipes.com/recipe/lemon-rosemary-beets-50400000124395/';
-    $var = $parseObj->parse($url_address);
-    echo $var;
-    
+        $query = "SELECT c.Ingredient FROM Cabinet c WHERE
+                c.Username = '" .$user ."'";
+        $result = mysql_query($query);
+	return mysql_fetch_array($result); // Returns the users cabinet
+      }
 
     ?>
 
