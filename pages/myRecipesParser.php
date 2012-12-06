@@ -5,7 +5,7 @@
 
     class MyRecipesParser
     {
-      function parse($url_address)
+      function parse($url_address, $image_url)
       {
 
         $db_host = 'localhost:8888';
@@ -55,6 +55,9 @@
             $query = "INSERT INTO Recipes VALUES
                   ('".$recipeName. "','" .$servings->plaintext."')";
             mysql_query($query);
+
+            // Add image to DB
+            // $query = "INSERT INTO Images VALUES ('".$url_address."','" .$image_url. "')";
             }
           }
 

@@ -9,8 +9,8 @@ CREATE TABLE Users
 
 INSERT INTO Users VALUES ('ddeutsch', ' ', 'Dan', 'Deutsch');
 
-# We don't use this table anymore
-DROP TABLE IF EXISTS CurrentUser;
+-- We don't use this table anymore
+--DROP TABLE IF EXISTS CurrentUser;
 
 DROP TABLE IF EXISTS Cabinet;
 CREATE TABLE Cabinet
@@ -72,3 +72,11 @@ Dip flour coated chicken breast in beaten eggs. Transfer breast to breadcrumb mi
 Heat 1 cup olive oil in a large skillet on medium-high heat until it begins to shimmer. Cook chicken until golden, about 2 minutes on each side. The chicken will finish cooking in the oven.\n
 Place chicken in a baking dish and top each breast with about 1/3 cup of tomato sauce. Layer each chicken breast with equal amounts of mozzarella cheese, fresh basil, and provolone cheese. Sprinkle 1 to 2 tablespoons of Parmesan cheese on top and drizzle with 1 tablespoon olive oil.\n
 Bake in the preheated oven until cheese is browned and bubbly, and chicken breasts are no longer pink in the center, 15 to 20 minutes. An instant-read thermometer inserted into the center should read at least 165 degrees F (74 degrees C).');
+
+
+DROP TABLE IF EXISTS Images;
+CREATE TABLE Images
+(
+    RecipeName VARCHAR(100) primary key,
+    ImageUrl VARCHAR(300)
+);

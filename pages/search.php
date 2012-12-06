@@ -31,22 +31,22 @@
       include ("myRecipesParser.php");
       //include('simple_html_dom.php'); // Cannot include this again if you have already done so
 
-      $searchIngredient = "beef";
+      $search_ingredient = "beef";
       // $allIng = array('beef', 'chicken','cheese','chocolate','egg','fish', 'fruit'
       // 'rice','sausage','seafood','shrimp', 'soy','vegetable','pork','turkey')
 
-      $searchIngredient = $_SESSION['searchTerm'];
+      $search_ingredient = $_SESSION['searchTerm'];
 
-      $base_url = "http://www.myrecipes.com/$searchIngredient-recipes/";
+      $base_url = "http://www.myrecipes.com/$search_ingredient-recipes/";
 
       $html = file_get_html($base_url);
-      $recipeUrls = array(); //  Array to hold recipe urls
-      $recipeImages = array(); // Array to hold recipe Images
+      $recipe_urls = array(); //  Array to hold recipe urls
+      $recipe_images = array(); // Array to hold recipe Images
 
       // Get recipe urls
       foreach($html->find('.horizTout div.img a') as $fivestar)
       {
-        array_push($recipeUrls,$fivestar->href);
+        array_push($recipe_urls,$fivestar->href);
         // echo "Ingredient url = ". $fivestar->href."<br/>";
 
          // Get recipe image urls
@@ -54,15 +54,15 @@
 
         foreach ($fivestarHtml->find('img') as $imgs)
         {
-          array_push($recipeImages, $imgs->src);
+          array_push($recipe_images, $imgs->src);
           // echo "Image url = ". $imgs->src."<br/><br/>";
         }
       }
 
-      for ($idx = 0; $idx < sizeof($recipeUrls); $idx++)
+      for ($idx = 0; $idx < sizeof($recipe_urls); $idx++)
       {
         $parseObj = new MyRecipesParser;
-        $var = $parseObj->parse($recipeUrls[$idx]);
+        $var = $parseObj->parse($recipe_urls[$idx], $recipe_images[$idx]);
         echo "Ingredient url = ". $var."<br/><br/><br/>";
       }
 
