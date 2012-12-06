@@ -1,4 +1,5 @@
 - DM: disallow users getting into site without credentials
+- DD: Change variable 'password' to 'pass' stored procedure ValidateUser
 
 Optionally delete session data upon logout:
 <?php

@@ -13,8 +13,8 @@
       function showSpinner()
       {
         document.getElementById('loadingImage').style.visibility='visible';
-      }	    
-    </script>  
+      }
+    </script>
 </head>
 <body>
     <img src="../img/logo.png" usemap="#map"/>
@@ -24,7 +24,7 @@
     </map>
 
     <?
-    
+
 	$db_host = 'localhost:8888';
 	$db_user = 'cs41512_recman';
 	$db_pass = 'pass';
@@ -38,11 +38,11 @@
 	}
 
 	mysql_select_db($db_name, $conn);
-	
+
 	$query = "SELECT U.FName, U.LName
 		  FROM Users U
 		  WHERE U.Username = '".$_SESSION['username']."'";
-	
+
 	$result = mysql_query($query);
 	$row = mysql_fetch_array($result);
 
@@ -54,18 +54,18 @@
         <input type="submit" value="Search" onclick="showSpinner();" />
     </form>
     <br />
-    
+
     <form action="cabinetSearch.php" method="post">
         Search for recipes by your cabinet ingredients: <br />
         <input type="submit" value="Search" onclick="showSpinner();"/>
     </form>
 
     <p>Edit the ingredients in your cabinet <a href="cabinet.php">here</a></p>
-    
+
     <div style="position:absolute; left:153px; top: 100px;"> <img id="loadingImage"
         src="http://i1061.photobucket.com/albums/t473/dmhembe/MR-connectome/loading_zpsac6e6d22.gif"
         border="0" alt="loading" style="visibility:hidden;opacity:0.5"/> </div>
-    
+
     <a href="allRecipesParser.php">AllRecipesParser</a> </br>
     <a href="parser.php">MyRecipesParser</a> </br>
 
