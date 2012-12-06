@@ -63,12 +63,23 @@
       */
 
     include ("myRecipesParser.php");
+    /*
+    $ingredient = "";
+    //$ingredient = $_SESSION['searchTerm'];
+    $cabinetIngredients = array('chicken','broccoli','beef','beets','cheese');
+    foreach ($cabinetIngredients as $ci)
+    {
+      $base_url = "http://www.myrecipes.com/$ci-recipes/";
+      print $base_url."<br/>" ;
+    }
+    */
+
 
     $parseObj = new MyRecipesParser;
-
     $url_address = 'http://www.myrecipes.com/recipe/lemon-rosemary-beets-50400000124395/';
     $var = $parseObj->parse($url_address);
     echo $var;
+    
 
     ?>
 
