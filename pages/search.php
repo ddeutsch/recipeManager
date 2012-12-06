@@ -70,16 +70,15 @@
       //header('Location: displayRecipeResults.php');
 
       /**
-       *Untested
        *Get a users cabinet
        *@param string the username whose cabinet we want
        *@return array the food items in a users cabinet
        */
-      function getUsersCabinet($username)
+      function getUsersCabinet($username = NULL)
       {
-        if ( !isset($user))
+        if ( !isset($username))
         {
-          $user = $_SESSION['username'];
+          $username = $_SESSION['username'];
         }
 
         $db_host = 'localhost:8888';
@@ -98,9 +97,20 @@
         mysql_select_db($db_name, $conn);
 
         $query = "SELECT c.Ingredient FROM Cabinet c WHERE
-                c.Username = '" .$user ."'";
+                c.Username = '" .$username ."'";
+
+
         $result = mysql_query($query);
-	return mysql_fetch_array($result); // Returns the users cabinet
+        $row = mysql_fetch_array($result);
+
+        $returnArray = array();
+        while ($row = mysql_fetch_array($result))
+	{
+	  //printf("%s", $row['Ingredient']);
+          array_push($returnArray, $row['Ingredient']);
+	}
+
+	return $returnArray; // Returns the users cabinet
       }
 
     ?>
