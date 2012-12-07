@@ -19,8 +19,8 @@
         {
             // trouble here.. don't know what's going on. Sometimes no results show up!
             $result = str_replace("'", "", str_replace(" ", "-", trim($result->plaintext)));
-            $result = preg_replace("-+", "-", $result);
-
+        //    $result = preg_replace("-+", "-", $result);
+            
             $newResult = "";
             for ($i = 0; $i < strlen($result); $i++)
             {
@@ -29,8 +29,8 @@
                 if ($result[$i] == '-')
                     $newResult = $newResult . '-';
             }
-            $result = $newResult;   
-            
+            $result = $newResult;
+                        
             $allRecipes->parse("http://allrecipes.com/recipe/" . $result);
             
             $count = $count + 1;
@@ -45,5 +45,5 @@
     }
     
     echo "<a href='displayRecipeResults.php'>click here</a>";
-    header('Location: displayRecipeResults.php');
+    //header('Location: displayRecipeResults.php');
 ?>

@@ -25,7 +25,24 @@
             $first = strrpos($recipeName, "itemprop=\"name\">") + 15;
             $last = strrpos($recipeName, "</h1>");
             $recipeName = substr($recipeName, $first + 1, $last - $first - 1);
-                            
+            
+            
+            foreach($html->find('meta') as $meta)
+            {
+                $image = "";
+                if ($meta->id == "metaOpenGraphImage")
+                {
+                    $image = $meta->content;
+                    
+                    $query = "INSERT INTO Images VALUES('".$recipeName. "','" .$image."')";
+                    mysql_query($query);
+                    
+                    break;
+                }
+                
+            }
+            
+            
             // echo "<h3> Ingredients </h3>";
               
             $amountArray = array();

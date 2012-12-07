@@ -3,21 +3,26 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Recipe Manager</title>
 </head>
 <body>
-    <img src="../img/logo.png" usemap="#map"/>
+    <img src="../img/logo.png" usemap="#map" class="center"/>
 
     <map name="map">
         <area shape="rect" coords="0,0,235,49" alt="Home" href="index.html" />
     </map>   
 
-    <form action="validateUser.php" method="post">
+    </br>
+    <div class="form">
+    <form action="validateUser.php" method="post" class="center">
         Username: <input type="text" name="username" /><br />
         Password: <input type="password" name="password" /><br /><br />
         <input type="submit" value="Log in" />
     </form>
 
     <p>New User? Click <a href="./newUser.html">here</a></p>
+    </div>
+
 </body>
 </html>

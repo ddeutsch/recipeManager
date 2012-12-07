@@ -35,6 +35,16 @@
             $recipe = $_POST['recipeName'];
             
             printf("<h2>%s</h2>", $recipe);
+	    
+	    // Image
+	    $query = "SELECT ImageUrl
+		      FROM Images
+		      WHERE RecipeName = \"$recipe\"";
+	    $result = mysql_query($query);
+	    
+	    $row = mysql_fetch_array($result);
+	    
+	    printf("<img src=\"%s\"/>", $row['ImageUrl']);
 
 	    // Recipe information
             $query = "SELECT *
