@@ -57,8 +57,10 @@
             mysql_query($query);
 
             // Add image to DB
-            // $query = "INSERT INTO Images VALUES ('".$url_address."','" .$image_url. "')";
+            $query = "INSERT INTO Images VALUES
+                ('".$recipeName."','" .$image_url. "')";
             }
+            mysql_query($query);
           }
 
           // echo "<br> Serving = $servings <br><br>";
