@@ -5,17 +5,18 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="style.css">
         <title>Recipe</title>
     </head>
     
-    <img src="../img/logo.png" usemap="#map"/>
+    <img class="center" src="../img/logo.png" usemap="#map"/>
 
     <map name="map">
         <area shape="rect" coords="0,0,235,49" alt="Home" href="homePage.php" />
     </map>
     
     <body>
-    
+    <div class="form">
         <?php
 	    $db_host = 'localhost:8888';
 	    $db_user = 'cs41512_recman';
@@ -55,6 +56,7 @@
 	    $row = mysql_fetch_array($result);
 	    
 	    printf("<p>Servings: %s</p>", $row['Servings']);
+	    printf("</div>");
 	    
 	    // Ingredient information
 	    $query = "SELECT *
@@ -80,6 +82,5 @@
 	    printf("Instructions:");
 	    printf("<p>%s</p>", $row['Instructions']);
         ?>
-        
     </body>
 </html> 

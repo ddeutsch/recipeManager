@@ -7,15 +7,17 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Recipe Manager</title>
 </head>
 <body>
-    <img src="../img/logo.png" usemap="#map"/>
+    <img class="center" src="../img/logo.png" usemap="#map"/>
 
     <map name="map">
         <area shape="rect" coords="0,0,235,49" alt="Home" href="homePage.php" />
     </map>
 
+    <div class="form">
     <h1>Your cabinet:</h1>
 
     <?php
@@ -37,7 +39,7 @@
 		  FROM Cabinet C
 		  WHERE C.Username = '".$_SESSION['username']."'";
 
-	printf("<table border=\"1\">");
+	printf("<table border=\"1\" align=\"center\">");
 	printf("<tr><th>Ingredient</th></tr>");
     
 	$result = mysql_query($query);
@@ -57,6 +59,7 @@
 	<input type="submit" value="Add"/>
     </form>
 
+    </div>
 
 </body>
 </html>

@@ -7,6 +7,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Homepage</title>
     <script type="text/javascript">
       // Function to add a spinner during upload & processing
@@ -17,12 +18,13 @@
     </script>
 </head>
 <body>
-    <img src="../img/logo.png" usemap="#map"/>
+    <img class="center" src="../img/logo.png" usemap="#map"/>
 
     <map name="map">
         <area shape="rect" coords="0,0,235,49" alt="Home" href="homePage.php" />
     </map>
 
+    <div class="form">
     <?
 
 	$db_host = 'localhost:8888';
@@ -62,6 +64,8 @@
 
     <p>Edit the ingredients in your cabinet <a href="cabinet.php">here</a></p>
 
+    </div>
+    
     <div style="position:absolute; left:153px; top: 100px;"> <img id="loadingImage"
         src="http://i1061.photobucket.com/albums/t473/dmhembe/MR-connectome/loading_zpsac6e6d22.gif"
         border="0" alt="loading" style="visibility:hidden;opacity:0.5"/> </div>

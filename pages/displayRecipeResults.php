@@ -7,10 +7,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="style.css">
         <title>Search Results</title>
     </head>
     
-    <img src="../img/logo.png" usemap="#map"/>
+    <img class="center" src="../img/logo.png" usemap="#map"/>
 
     <map name="map">
         <area shape="rect" coords="0,0,235,49" alt="Home" href="homePage.php" />
