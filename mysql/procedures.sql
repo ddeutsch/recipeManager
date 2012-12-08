@@ -1,12 +1,12 @@
 DELIMITER //
 
-# Add user if doesnt already exist
+-- Add user if doesnt already exist
 DROP PROCEDURE IF EXISTS CreateUser//
 CREATE PROCEDURE CreateUser(IN username VARCHAR(16), IN pass VARCHAR(16), IN fname VARCHAR(16), IN lname VARCHAR(16))
 BEGIN
 	IF NOT EXISTS (SELECT * FROM Users U WHERE U.Username = username) THEN
 		INSERT INTO Users VALUES (username, pass, fname, lname);
-		
+
 		SELECT * FROM Users;
 	ELSE
 		SELECT 'User already exists!' AS 'Error Message';
@@ -14,11 +14,11 @@ BEGIN
 END;
 //
 
-# Validate if the username and password are correct
+-- Validate if the username and password are correct
 DROP PROCEDURE IF EXISTS ValidateUser//
-CREATE PROCEDURE ValidateUser(IN username VARCHAR(16), IN password VARCHAR(16))
+CREATE PROCEDURE ValidateUser(IN username VARCHAR(16), IN pass VARCHAR(16))
 BEGIN
-    IF NOT EXISTS (SELECT * FROM Users U WHERE U.Username = username AND U.Pass = password) THEN
+    IF NOT EXISTS (SELECT * FROM Users U WHERE U.Username = username AND U.Pass = pass) THEN
 	SELECT 'Incorrect Username or Password' AS 'Error Message';
     ELSE
 	SELECT * FROM Users U WHERE U.Username = username;
@@ -26,7 +26,7 @@ BEGIN
 END;
 //
 
-# Check to see what recipes a user can make
+-- Check to see what recipes a user can make
 DROP PROCEDURE IF EXISTS FindCabinetRecipes//
 CREATE PROCEDURE FindCabinetRecipes(IN username VARCHAR(16))
 BEGIN
@@ -44,7 +44,7 @@ BEGIN
     (
         SELECT C.Ingredient
         FROM Cabinet C
-        WHERE C.Username = "ddeutsch"
+        WHERE C.Username = username -- "ddeutsch" -- I assume this is what you wanted
     ) T1
         ON T1.Ingredient = I.Ingredient
         GROUP BY I.RecipeName
@@ -56,5 +56,3 @@ END;
 
 
 DELIMITER ;
-
-

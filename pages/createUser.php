@@ -15,7 +15,7 @@ if (mysqli_connect_errno())
 $fname = $_POST["fname"];
 $lname = $_POST["lname"];
 $username = $_POST["username"];
-$password = $_POST["password"];
+$password = sha1($_POST["password"]);
 
 $_SESSION['username'] = $username; // store username in session data
 

@@ -1,5 +1,8 @@
 <?php
     session_start();
+    include("userStatus.php");
+
+    checkLoggedIn($_SESSION['username']); // Make sure the user is logged in
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +14,12 @@
     <title>Recipe Manager</title>
 </head>
 <body>
+    <!-- Sign out button -->
+    <form action="signOut.php" method="post" style="position: absolute;
+            top:10px; right:40px; width:100px; height:25px">
+    <input type="submit" value="Sign Out"/>
+    </form>
+
     <img class="center" src="../img/logo.png" usemap="#map"/>
 
     <map name="map">
@@ -25,7 +34,7 @@
 	$db_user = 'cs41512_recman';
 	$db_pass = 'pass';
 	$db_name = 'cs41512_recipe_db';
-    
+
 	$conn = mysql_connect($db_host, $db_user, $db_pass);
 	if (!$conn)
 	{
@@ -35,13 +44,13 @@
 
 	mysql_select_db($db_name, $conn);
 
-	$query = "SELECT C.Ingredient 
+	$query = "SELECT C.Ingredient
 		  FROM Cabinet C
 		  WHERE C.Username = '".$_SESSION['username']."'";
 
 	printf("<table border=\"1\" align=\"center\">");
 	printf("<tr><th>Ingredient</th></tr>");
-    
+
 	$result = mysql_query($query);
 
 	while ($row = mysql_fetch_array($result))
@@ -58,7 +67,7 @@
 	New Ingredient: <input type="text" name="ingredient" /><br />
 	<input type="submit" value="Add"/>
     </form>
-    
+
     <form action="addIngredient.php" method="post">
 	Add Ingredient from database: </br>
 	<select name="ingredient">
@@ -67,7 +76,7 @@
             $db_user = 'cs41512_recman';
             $db_pass = 'pass';
             $db_name = 'cs41512_recipe_db';
-        
+
             $conn = mysql_connect($db_host, $db_user, $db_pass);
             if (!$conn)
             {
@@ -75,13 +84,13 @@
                 exit();
             }
             mysql_select_db($db_name, $conn);
-	    
+
 	    $query = "SELECT DISTINCT Ingredient
 		      FROM Ingredients
 		      ORDER BY Ingredient";
-		      
+
 	    $result = mysql_query($query);
-	    
+
 	    while ($row = mysql_fetch_array($result))
 	    {
 		printf("<option value=\"%s\">%s</option>", $row['Ingredient'], $row['Ingredient']);
@@ -90,7 +99,7 @@
 	</select>
 	<input type="submit" value="Add"/>
     </form>
-    
+
     <form action="removeIngredient.php" method="post">
 	Remove Ingredient: <input type="text" name="ingredient" /><br/>
 	<input type="submit" value="Delete"/>

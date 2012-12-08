@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include("userStatus.php");
+    checkLoggedIn($_SESSION['username']); // Make sure the user is logged in
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +20,12 @@
     </script>
 </head>
 <body>
+    <!-- Sign out button -->
+    <form action="signOut.php" method="post" style="position: absolute;
+            top:10px; right:40px; width:100px; height:25px">
+    <input type="submit" value="Sign Out"/>
+    </form>
+
     <img class="center" src="../img/logo.png" usemap="#map"/>
 
     <map name="map">
@@ -65,9 +73,9 @@
     <p>Edit the ingredients in your cabinet <a href="cabinet.php">here</a></p>
 
     <p>See all of the recipes in the database <a href="displayAllRecipes.php">here</a></p>
-    
+
     </div>
-    
+
     <div style="position:absolute; left:153px; top: 100px;"> <img id="loadingImage"
         src="http://i1061.photobucket.com/albums/t473/dmhembe/MR-connectome/loading_zpsac6e6d22.gif"
         border="0" alt="loading" style="visibility:hidden;opacity:0.5"/> </div>

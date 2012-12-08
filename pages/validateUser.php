@@ -14,7 +14,7 @@ if (mysqli_connect_errno())
 }
 
 $username = $_POST["username"];
-$password = $_POST["password"];
+$password = sha1($_POST["password"]);
 
 
 if ($mysqli->multi_query("CALL ValidateUser('".$username."','".$password."');"))
@@ -41,7 +41,7 @@ if ($mysqli->multi_query("CALL ValidateUser('".$username."','".$password."');"))
 		$result->close();
 	    }
 	} while ($mysqli->next_result());
-    }																		    
+    }
 }
 else
     printf("<br>Error: %s\n", $mysqli->error);

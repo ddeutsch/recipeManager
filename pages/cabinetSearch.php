@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include("userStatus.php");
+    checkLoggedIn($_SESSION['username']); // Make sure the user is logged in
 ?>
 
 <!DOCTYPE html>
@@ -11,25 +13,31 @@
     <title>Recipe Manager</title>
 </head>
 <body>
+    <!-- Sign out button -->
+    <form action="signOut.php" method="post" style="position: absolute;
+            top:10px; right:40px; width:100px; height:25px">
+    <input type="submit" value="Sign Out"/>
+    </form>
+
     <img src="../img/logo.png" usemap="#map"/>
 
     <map name="map">
         <area shape="rect" coords="0,0,235,49" alt="Home" href="homePage.php" />
     </map>
-    
+
     <h3>Search Results:</h3>
-	    
+
 	<?php
 	    $db_host = 'localhost:8888';
 	    $db_user = 'cs41512_recman';
 	    $db_pass = 'pass';
 	    $db_name = 'cs41512_recipe_db';
-    
+
             $mysqli = new mysqli("localhost", $db_user, $db_pass, $db_name);
-            
+
             if (mysqli_connect_errno())
               printf("Connect failed: %s<br>", mysqli_connect_errno());
-              
+
             if ($mysqli->multi_query("CALL FindCabinetRecipes('".$_SESSION['username']."');"))
             {
               printf("<form action=\"displayRecipe.php\" method=\"post\">");
@@ -39,7 +47,7 @@
                 while ($row = $result->fetch_row())
                   printf("%s <input type=\"radio\" name=\"recipeName\" value=\"%s\" /><br />", $row[0], $row[0]);
               }
-              
+
               printf("<input type=\"submit\" value=\"See Recipe\" /></form>");
               printf("<br />");
             }
