@@ -40,7 +40,7 @@
       <div class="form">
       <h2> Select a speciality recipe to prepare </h2>
 
-        <form method="post" action=myRecipesSpecials.php onclick="showSpinner();">
+        <form method="post" action=myRecipesSpecials.php>
           <select name="ingredient">
           <?php
           foreach($allIng as $ing)
@@ -52,6 +52,8 @@
         </select>
         </form>
       </div>
-
+      <div style="position:absolute; left:400px; top: 100px;"> <img id="loadingImage"
+        src="http://i1061.photobucket.com/albums/t473/dmhembe/MR-connectome/loading_zpsac6e6d22.gif"
+        border="0" alt="loading" style="visibility:hidden;opacity:0.5"/> </div>
     </body>
 </html>
