@@ -4,7 +4,7 @@
 
     class MyRecipesParser
     {
-      function parse($url_address, $image_url)
+      function parse($url_address, $image_url, $verbose = false)
       {
 
         $db_host = 'localhost:8888';
@@ -26,9 +26,12 @@
           // For  Ingredients Table
           $recipeName = array_shift($html->find("meta[name='recipe_name']"))->content;
 
-          // echo "<h2>" . $recipeName . "</h2>";
-
-          // echo "<h3> Ingredients </h3>";
+            if ($verbose)
+            {
+                echo "<h2>" . $recipeName . "</h2>";
+                printf("<img src=%s />", $image_url);
+                echo "<h3> Ingredients </h3>";
+            }
 
           $amountArray = array();
           $nameArray = array();
@@ -70,7 +73,10 @@
             $query = "INSERT INTO Ingredients VALUES
                   ('".$recipeName. "','" .$nameArray[$i]->plaintext."','" . $amountArray[$i]->plaintext."')";
             mysql_query($query);
-            // echo $amountArray[$i] . " " . $nameArray[$i] . "<br>";
+                if ($verbose)
+                {
+                echo $amountArray[$i] . " " . $nameArray[$i] . "<br>";
+                }
             }
 
           // For  Instructions Table
@@ -88,8 +94,10 @@
           {
             $finInstr = $finInstr.$t; // Concatenate all instructions so they are a single item
           }
-
-           // echo $finInstr;
+            if ($verbose)
+            {
+                echo $finInstr;
+            }
 
           // Insert ingredient & recipe name into Ingredients table
             $query = "INSERT INTO Instructions VALUES
