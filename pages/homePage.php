@@ -59,7 +59,8 @@
 	printf("<h3>Welcome, %s %s!</h3>", $row['FName'], $row['LName']);
     ?>
 
-    <form action="search2.php" method="post">
+    <!--<form action="search2.php" method="post">-->
+    <form action="combinedSearch.php" method="post">
         Search for recipes: <input type="text" name="recipeName" /> <br />
         <input type="submit" value="Search" onclick="showSpinner();" />
     </form>
