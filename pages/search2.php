@@ -48,7 +48,7 @@
     
     echo "count: " . $row['Total'] . "<br>";
     
-    if ($row['Total'] < 5)
+    if ($row['Total'] < 10)
     {
         $html = file_get_html($allRecipesSearchUrl . $searchTerm);
         
@@ -78,7 +78,7 @@
                 $allRecipes->parse("http://allrecipes.com/recipe/" . $result);
                 
                 $count = $count + 1;
-                if ($count >= 5)
+                if ($count >= 10)
                     break;    
                 }
                 catch (Exception $e)
