@@ -64,6 +64,8 @@
 
     <p>Edit the ingredients in your cabinet <a href="cabinet.php">here</a></p>
 
+    <p>See all of the recipes in the database <a href="displayAllRecipes.php">here</a></p>
+    
     </div>
     
     <div style="position:absolute; left:153px; top: 100px;"> <img id="loadingImage"

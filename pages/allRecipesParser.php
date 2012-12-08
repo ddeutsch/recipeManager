@@ -25,7 +25,21 @@
             $first = strrpos($recipeName, "itemprop=\"name\">") + 15;
             $last = strrpos($recipeName, "</h1>");
             $recipeName = substr($recipeName, $first + 1, $last - $first - 1);
+            $recipeName = $this->cleanString($recipeName);
             
+            $query = "SELECT COUNT(*) Count
+                      FROM Recipes
+                      WHERE RecipeName = '$recipeName'
+                      GROUP BY RecipeName";
+                      
+            $result = mysql_query($query);
+            $row = mysql_fetch_array($result);
+            
+            if ($row['Count'] > 0)
+            {
+                //echo "getting out of here!<br>";
+                return;
+            }
             
             foreach($html->find('meta') as $meta)
             {
@@ -60,6 +74,7 @@
                 if ($span->id == "lblIngName")
                 {
                     $name = $span->plaintext;
+                    $name = $this->cleanString($name);
                     array_push($nameArray,$name);
                     //echo "<h2>" . $name . "</h2>";
                 }
@@ -92,11 +107,33 @@
                 $allInstructions = $allInstructions . $i . ": " . $instructions->plaintext . "<br>";
                 $i = $i + 1;
             }
+            
+            $allInstructions = $this->cleanString($allInstructions);
+           
+           // echo $allInstructions . "<br>";
                     
             // Insert ingredient & recipe name into Ingredients table
-            $query = "INSERT INTO Instructions VALUES
-            ('".$recipeName. "','" .$allInstructions."')";
+            $query = "INSERT INTO Instructions VALUES('".$recipeName. "','" .$allInstructions."')";
             mysql_query($query);
+            
+            //echo "error no: " . mysql_error() . "<br>";
+        }
+        
+        function cleanString($string)
+        {
+            $newString = "";
+            for ($i = 0; $i < strlen($string); $i++)
+            {
+                if ($string[$i] == '%')
+                    $newString = $newString . "\\\%";
+                else if ($string[$i] == '\'')
+                    $newString = $newString . "\\'";
+                else if ($string[$i] == '\"')
+                    $newString = $newString . "\\\"";
+                else
+                    $newString = $newString . $string[$i];
+            }            
+            return ($newString);
         }
     }
 ?>      
