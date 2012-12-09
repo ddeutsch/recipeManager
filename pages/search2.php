@@ -32,7 +32,7 @@
                     }
                     $result = $newResult;
 
-                    // echo "result: " . $result ."<br>";
+                    echo "result: " . $result ."<br>";
 
                     $allRecipes->parse("http://allrecipes.com/recipe/" . $result);
 

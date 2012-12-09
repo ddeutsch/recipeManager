@@ -1,7 +1,7 @@
 <?php
   session_start();
   include("userStatus.php");
-  //include ("search.php");
+  include ("search.php");
   include ("search2.php");
   include ("myRecipesParser.php");
   include("simple_html_dom.php");
@@ -17,19 +17,18 @@
   if ($rowCount < 10)
   {
     // Run allrecipes search term search
-    $allRecipesSearchObj = new allRecipesSearch;
-    $allRecipesSearchTerm = $allRecipesSearchObj->parseSearchTerm($_SESSION['searchTerm']);
-    $findCount = $allRecipesSearchObj->webSearch($allRecipesSearchTerm);
+    //$allRecipesSearchObj = new allRecipesSearch;
+    //$allRecipesSearchTerm = $allRecipesSearchObj->parseSearchTerm($_SESSION['searchTerm']);
+    //$findCount = $allRecipesSearchObj->webSearch($allRecipesSearchTerm);
 
     // Run myrecipes search term search
     // Don't have enough results? Run search term search of different site
-    if ($findCount == 0)
-    {
-      // echo $findCount;
+    //if ($findCount == 0)
+    //{
       // DON'T work together for some reason ??
-      // $myRecipesSearchObj = new myRecipesSearch;
-      // $myRecipesSearchObj->webSearch($_SESSION['searchTerm']);
-    }
+      $myRecipesSearchObj = new myRecipesSearch;
+      $myRecipesSearchObj->webSearch($_SESSION['searchTerm']);
+    //}
   }
   // header('Location : displayRecipeResults.php');
   echo "Not sure why this won't just redirect! Click <a href='displayRecipeResults.php'>here</a> for result";
@@ -69,25 +68,5 @@
     $row = mysql_fetch_array($result);
 
     return  $row['Total'];
-  }
-
-  /**
-   * Parse search term appropriately for use in allRecipes search
-   *@param string The search term
-   */
-  function allRecipesParseSearchTerm($searchTerm)
-  {
-    $newTerm = "";
-
-    for ($i = 0; $i < strlen($searchTerm); $i++)
-    {
-        if ($searchTerm[$i] == ' ')
-            $newTerm = $newTerm . '-';
-        else if (($searchTerm[$i] >= 'a' && $searchTerm[$i] <= 'z') || ($searchTerm[$i] >= 'A' && $searchTerm[$i] <= 'Z'))
-            $newTerm = $newTerm . $searchTerm[$i];
-    }
-    $searchTerm = $newTerm;
-
-    return $searchTerm;
   }
 ?>

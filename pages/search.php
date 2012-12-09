@@ -1,65 +1,73 @@
 <?php
   session_start();
 
-      // include ("myRecipesParser.php");
+  // Testing
+  //include ("myRecipesParser.php");
+  //include("simple_html_dom.php");
+  //
+  //$search_term = "chocolate cake";
+  //
+  //$myRecipesSearchObj = new myRecipesSearch;
+  //$myRecipesSearchObj->webSearch($search_term);
+
 
       class myRecipesSearch
       {
         function webSearch($search_term)
         {
-          // $search_term = $_SESSION['searchTerm'];
-
-          $search_array = preg_split("[\s]", $search_term); // Split search term by word
-          $allIng = array('beef', 'chicken','cheese','chocolate','egg','fish', 'fruit'
-              ,'rice','sausage','seafood','shrimp', 'soy','vegetable','pork','turkey');
-
-          foreach($search_array as $s)
-          {
-            if ( in_array($s, $allIng) )
-            {
-              $search_ingredient = $s;
-              break;
-            }
-          }
-
-          if (!isset($search_ingredient))
-          {
-            return;
-          }
-
-          $base_url = "http://www.myrecipes.com/$search_ingredient-recipes/";
+          $search_term = str_replace(" ","+",$search_term);
+          $base_url = "http://search.myrecipes.com/search.html?Ntt=".$search_term."&x=0&y=0";
 
           $html = file_get_html($base_url);
+
           $recipe_urls = array(); //  Array to hold recipe urls
-          $recipe_images = array(); // Array to hold recipe Images
+          $span_array = array(); // Array to hold the type of urls received i.e Recipe, Article etc
+          $recipe_names = array(); // Array to hold the names of the recipes
 
-          // Get recipe urls
-          foreach($html->find('.horizTout div.img a') as $fivestar)
+          // Get spans containing info of whether tag is a collection or a recipe
+          foreach($html->find('h4 span') as $h4as)
           {
-            if ($fivestar->href != '#')
-            {
-              array_push($recipe_urls,$fivestar->href);
-              // echo "Ingredient url = ". $fivestar->href."<br/>";
-
-               // Get recipe image urls
-              $fivestarHtml = str_get_html($fivestar);
-
-              foreach ($fivestarHtml->find('img') as $imgs)
-              {
-                array_push($recipe_images, $imgs->src);
-                // echo "Image url = ". $imgs->src."<br/><br/>";
-              }
-            }
+            array_push($span_array, $h4as->innertext);
+            //echo $h4as->innertext . "<br/>";
           }
+
+          // Get recipe urls & names
+          foreach($html->find('h4 a') as $h4aHref)
+          {
+            array_push($recipe_urls, $h4aHref->href);
+            //echo $h4aHref->href . "<br/>";
+
+            array_push($recipe_names, $h4aHref->plaintext);
+            //echo $h4aHref->plaintext . "<br/>";
+
+          }
+
+          // Get only the urls & recipes names that are for recipes & not articles/collections etc
+          $final_recipe_urls = array();
+          $final_recipe_names = array();
 
           for ($idx = 0; $idx < sizeof($recipe_urls); $idx++)
           {
-
-            $parseObj = new MyRecipesParser;
-            $var = $parseObj->parse($recipe_urls[$idx], $recipe_images[$idx]);
+            if ($span_array[$idx] == "Recipe")
+            {
+              array_push($final_recipe_urls, $recipe_urls[$idx]);
+              array_push($final_recipe_names, $recipe_names[$idx]);
+              //echo "Name =" . $recipe_names[$idx] . " ====> Url = " .$recipe_urls[$idx]."<br/>";
+            }
           }
-          //echo "Add recipes & Images to the DB Done!";
-          return $var;
+
+         // echo "*****************************************<br/>";
+
+          for ($idx = 0; $idx < sizeof($final_recipe_urls); $idx++)
+          {
+           // echo "Idx = ".$idx. "URL = " . $final_recipe_urls[$idx] . "<br/>";
+            $parseObj = new MyRecipesParser;
+            $var = $parseObj->parseSearch($recipe_urls[$idx], $recipe_names[$idx]);
+          }
+
+         // echo "Im here!";
+         // return $var;
         }
       }
+
     ?>
