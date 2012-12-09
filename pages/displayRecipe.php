@@ -41,9 +41,9 @@
 	    mysql_select_db($db_name, $conn);
 
             // set the correct recipe here
-            $recipe = $_POST['recipeName'];
+            $recipe = $_SESSION['searchTerm']; // DM: Fix - Was originally -> $_POST['recipeName'];
 
-            printf("<h2>%s</h2>", $recipe);
+            printf("<h2>%s</h2>", ucwords($recipe));
 
 	    // Image
 	    $query = "SELECT ImageUrl
@@ -72,7 +72,7 @@
 		      WHERE I.RecipeName = \"$recipe\"";
 	    $result = mysql_query($query);
 
-	    printf("Ingredients:");
+	    printf("<h2> Ingredients: </h2>");
 	    printf("<ul>");
 	    while ($row = mysql_fetch_array($result))
 	    {
@@ -87,7 +87,7 @@
 	    $result = mysql_query($query);
 	    $row = mysql_fetch_array($result);
 
-	    printf("Instructions:");
+	    printf("<h2>Instructions:</h2>");
 	    printf("<p>%s</p>", $row['Instructions']);
         ?>
     </body>
