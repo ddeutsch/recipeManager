@@ -32,7 +32,7 @@
                     }
                     $result = $newResult;
 
-                    // echo "result: " . $result ."<br>";
+                    echo "result: " . $result ."<br>";
 
                     $allRecipes->parse("http://allrecipes.com/recipe/" . $result);
 
@@ -48,5 +48,26 @@
                 }
             return $count;
         }
+
+        /**
+        * Parse search term appropriately for use in allRecipes search
+        *@param string The search term
+        */
+       function parseSearchTerm($searchTerm)
+       {
+            $newTerm = "";
+
+            for ($i = 0; $i < strlen($searchTerm); $i++)
+            {
+                if ($searchTerm[$i] == ' ')
+                    $newTerm = $newTerm . '-';
+                else if (($searchTerm[$i] >= 'a' && $searchTerm[$i] <= 'z') || ($searchTerm[$i] >= 'A' && $searchTerm[$i] <= 'Z'))
+                    $newTerm = $newTerm . $searchTerm[$i];
+            }
+            $searchTerm = $newTerm;
+            return $searchTerm;
+       }
+
+
     }
 ?>
