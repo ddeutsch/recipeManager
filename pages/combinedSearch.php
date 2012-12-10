@@ -17,10 +17,10 @@
   if ($rowCount < 10)
   {
     // Run allrecipes search term search
-    //$allRecipesSearchObj = new allRecipesSearch;
-    //$allRecipesSearchTerm = $allRecipesSearchObj->parseSearchTerm($_SESSION['searchTerm']);
-    //$findCount = $allRecipesSearchObj->webSearch($allRecipesSearchTerm);
-
+    $allRecipesSearchObj = new allRecipesSearch;
+    $allRecipesSearchTerm = $allRecipesSearchObj->parseSearchTerm($_SESSION['searchTerm']);
+    $findCount = $allRecipesSearchObj->webSearch($allRecipesSearchTerm);
+    
     // Run myrecipes search term search
     // Don't have enough results? Run search term search of different site
     //if ($findCount == 0)

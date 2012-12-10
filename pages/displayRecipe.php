@@ -41,8 +41,10 @@
 	    mysql_select_db($db_name, $conn);
 
             // set the correct recipe here
-            $recipe = $_SESSION['searchTerm']; // DM: Fix - Was originally -> $_POST['recipeName'];
-
+            //$recipe = $_SESSION['searchTerm']; // DM: Fix - Was originally -> $_POST['recipeName'];
+	    $recipe = $_POST['recipeName'];
+	    
+	    
             printf("<h2>%s</h2>", ucwords($recipe));
 
 	    // Image
