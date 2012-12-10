@@ -5,7 +5,8 @@
   //include ("myRecipesParser.php");
   //include("simple_html_dom.php");
   //
-  //$search_term = "baby back ribs";
+  //// $search_term = "baby back ribs"; // good
+  //$search_term = "chocolate blah"; // bad
   //
   //$myRecipesSearchObj = new myRecipesSearch;
   //$myRecipesSearchObj->webSearch($search_term);
@@ -29,6 +30,13 @@
           {
             array_push($span_array, $h4as->innertext);
             //echo $h4as->innertext . "<br/>";
+          }
+
+          // If we get here & we have no span tags inside h4 tags then we have a bad search
+          if (sizeof($span_array) == 0)
+          {
+            $_SESSION['BAD_SEARCH'] = true;
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
           }
 
           // Get recipe urls & names

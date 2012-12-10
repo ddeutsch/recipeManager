@@ -34,6 +34,7 @@
 
     <div class="form">
     <?
+	checkBadSearch(); // Display to the user that their search term was bad
 
 	$db_host = 'localhost:8888';
 	$db_user = 'cs41512_recman';
@@ -57,6 +58,15 @@
 	$row = mysql_fetch_array($result);
 
 	printf("<h3>Welcome, %s %s!</h3>", $row['FName'], $row['LName']);
+
+	function checkBadSearch()
+	{
+	    if ($_SESSION['BAD_SEARCH'])
+	    {
+		echo "<FONT COLOR='#ff0000'> <h4> Bad search please try again!</h4></FONT>" ;
+		$_SESSION['BAD_SEARCH'] = false;
+	    }
+	}
     ?>
 
     <!--<form action="search2.php" method="post">-->

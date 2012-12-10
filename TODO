@@ -1,0 +1,5 @@
+0. Fix the cabinet recipe search - doesn't work for me at all! - DM
+1. Fix no redirect on result CombinedSearches.php
+2. Fix checking in DB for recipes.
+2. Fix DisplayRecipe.php not showing up sometimes
+3. Fix DisplayRecipe.php result  not changing when the BACK button is used
