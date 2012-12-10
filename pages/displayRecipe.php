@@ -42,7 +42,7 @@
 
             // set the correct recipe here
             //$recipe = $_SESSION['searchTerm']; // DM: Fix - Was originally -> $_POST['recipeName'];
-	    $recipe = $_POST['recipeName'];
+	    $recipe = $_POST['recipeName']; // why did you change this?
 	    
 	    
             printf("<h2>%s</h2>", ucwords($recipe));

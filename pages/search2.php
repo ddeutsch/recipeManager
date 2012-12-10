@@ -21,7 +21,9 @@
                     // trouble here.. don't know what's going on. Sometimes no results show up!
                     $text = (string)$result;
                     $result = $this->parseSearchTerm($text);
-
+                    
+                    echo "result: $result<br>";
+                    
                     $allRecipes->parse("http://allrecipes.com/recipe/" . $result);
 
                     $count = $count + 1;
@@ -48,7 +50,7 @@
             
             for ($i = 0; $i < strlen($searchTerm); $i++)
             {
-                if ($searchTerm[$i] == ' ')
+                if ($searchTerm[$i] == ' ' || $searchTerm[$i] == '-')
                     $newTerm = $newTerm . '-';
                 else if (($searchTerm[$i] >= 'a' && $searchTerm[$i] <= 'z') || ($searchTerm[$i] >= 'A' && $searchTerm[$i] <= 'Z'))
                     $newTerm = $newTerm . $searchTerm[$i];
