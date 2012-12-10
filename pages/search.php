@@ -5,7 +5,7 @@
   //include ("myRecipesParser.php");
   //include("simple_html_dom.php");
   //
-  //$search_term = "chocolate cake";
+  //$search_term = "baby back ribs";
   //
   //$myRecipesSearchObj = new myRecipesSearch;
   //$myRecipesSearchObj->webSearch($search_term);
@@ -54,13 +54,14 @@
               array_push($final_recipe_names, $recipe_names[$idx]);
               //echo "Name =" . $recipe_names[$idx] . " ====> Url = " .$recipe_urls[$idx]."<br/>";
             }
+            // echo $span_array[$idx]."<br/>";
           }
 
-         // echo "*****************************************<br/>";
+          //echo "*****************************************<br/>";
 
           for ($idx = 0; $idx < sizeof($final_recipe_urls); $idx++)
           {
-           // echo "Idx = ".$idx. "URL = " . $final_recipe_urls[$idx] . "<br/>";
+            //echo "Idx = ".$idx. "URL = " . $final_recipe_urls[$idx] . "<br/>";
             $parseObj = new MyRecipesParser;
             $var = $parseObj->parseSearch($recipe_urls[$idx], $recipe_names[$idx]);
           }

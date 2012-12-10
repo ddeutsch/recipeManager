@@ -30,7 +30,7 @@
       $myRecipesSearchObj->webSearch($_SESSION['searchTerm']);
     //}
   }
-  // header('Location : displayRecipeResults.php');
+  //header('Location : displayRecipeResults.php');
   echo "Not sure why this won't just redirect! Click <a href='displayRecipeResults.php'>here</a> for result";
 
   /**
