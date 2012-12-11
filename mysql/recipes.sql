@@ -7,8 +7,8 @@ CREATE TABLE Users
     LName VARCHAR(16)
 );
 
-#We don't use this table anymore
-#DROP TABLE IF EXISTS CurrentUser;
+--#We don't use this table anymore
+--#DROP TABLE IF EXISTS CurrentUser;
 
 DROP TABLE IF EXISTS Cabinet;
 CREATE TABLE Cabinet
