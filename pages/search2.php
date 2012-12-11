@@ -9,6 +9,12 @@
         {            
             $allRecipesSearchUrl = "http://allrecipes.com/search/default.aspx?wt=";
             $html = file_get_html($allRecipesSearchUrl . $searchTerm);
+            
+            if (gettype($html) == "boolean")
+            {
+                //echo "returning!";
+                return;
+            }
 
             $allRecipes = new AllRecipesParser;
             
