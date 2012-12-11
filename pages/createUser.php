@@ -29,7 +29,11 @@ if ($mysqli->multi_query("CALL CreateUser('".$username."','".$password."', '".$f
 
 	    # length == 1 if Error Message
 	    if (count($finfo) == 1)
-		printf("Sorry, Username already exists");
+	    {
+		// printf("Sorry, Username already exists");
+		$_SESSION['DUPLICATE_USERNAME'] = true;
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
+	    }
 	    else
 	    {
 		//$mysqli->multi_query("CALL ChangeCurrentUser('".$username."')");
