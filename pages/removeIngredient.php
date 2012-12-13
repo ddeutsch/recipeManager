@@ -1,3 +1,7 @@
+<!-- This script removes an ingredient from the user's cabinet. The name of the ingredient should be
+in $_POST['ingredient']. This should only be called from cabinet.php because this script
+will redirect back to that page after the ingredient has been removed. -->
+
 <?php
     session_start();
     include("userStatus.php");
@@ -20,7 +24,6 @@
     $ingredient = $_POST['ingredient'];
 
     $query = "DELETE FROM Cabinet WHERE Username = '".$_SESSION['username']."' AND Ingredient ='".$ingredient."'";
-    //echo $query;
     mysql_query($query);
     header('Location: cabinet.php');
 ?>

@@ -1,3 +1,6 @@
+<!-- This script checks to find any recipes that the user can make based on having all
+of that recipe's ingredients in their cabinet. -->
+
 <?php
     session_start();
     include("userStatus.php");
@@ -7,11 +10,11 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Recipe Manager</title>
-</head>
+  <head>
+      <meta charset="utf-8" />
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <title>Recipe Manager</title>
+  </head>
 <body>
     <!-- Sign out button -->
     <form action="signOut.php" method="post" style="position: absolute;
@@ -38,8 +41,10 @@
             if (mysqli_connect_errno())
               printf("Connect failed: %s<br>", mysqli_connect_errno());
 
+            // call MySQL procedure to find the recipes
             if ($mysqli->multi_query("CALL FindCabinetRecipes('".$_SESSION['username']."');"))
             {
+              // display the results in a form
               printf("<form action=\"displayRecipe.php\" method=\"post\">");
 
               if ($result = $mysqli->store_result())

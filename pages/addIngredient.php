@@ -1,3 +1,7 @@
+<!-- This script is responsible for adding an ingredient to the User's cabinet. It should
+only be called from cabinet.php because it adds the ingredient, then redirects back to
+cabinet.php to give the illusion that a row in the ingredients table was just created. -->
+
 <?php
     session_start();
     include("userStatus.php");
@@ -20,6 +24,7 @@
 
     $ingredient = $_POST['ingredient'];
 
+    // perform the INSERT
     $query = "INSERT INTO Cabinet VALUES ('".$_SESSION['username']."','".$ingredient."')";
     mysql_query($query);
     header('Location: cabinet.php');

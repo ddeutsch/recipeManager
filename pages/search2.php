@@ -1,37 +1,41 @@
+<!-- This script takes the user's search term, then finds all of the recipe names from http://www.allrecipes.com
+that match the search term. Once it has a recipe name, it calls the allRecipes parser and provides it
+the url to that recipe. -->
+
 <?php
-    //include('simple_html_dom.php');
-    //include('AllRecipesParser.php');
     session_start();
 
     class allRecipesSearch
     {
+        /**
+        * This function parses the search results page for each recipe name.
+        *
+        * @param (String) $searchTerm The search term.
+        */
         function webSearch($searchTerm)
         {            
             $allRecipesSearchUrl = "http://allrecipes.com/search/default.aspx?wt=";
             $html = file_get_html($allRecipesSearchUrl . $searchTerm);
             
+            // if true, something failed
             if (gettype($html) == "boolean")
-            {
-                //echo "returning!";
                 return;
-            }
 
             $allRecipes = new AllRecipesParser;
             
             $count = 0;
+            
+            // h3.resultTitle is specific to allrecipes.com
             foreach($html->find('h3.resultTitle') as $result)
             {
                 $result = $result->plaintext;
                 try
                 {
-                    // trouble here.. don't know what's going on. Sometimes no results show up!
                     $text = (string)$result;
                     $result = $this->parseSearchTerm($text);
-                    
-                    echo "result: $result<br>";
-                    
+                                        
                     $allRecipes->parse("http://allrecipes.com/recipe/" . $result);
-
+                    
                     $count = $count + 1;
                     if ($count >= 10)
                         break;
@@ -47,7 +51,7 @@
 
         /**
         * Parse search term appropriately for use in allRecipes search
-        *@param string The search term
+        * @param string The search term
         */
        function parseSearchTerm($searchTerm)
        {
@@ -66,7 +70,5 @@
             $newTerm = preg_replace("/-+/", "-", $newTerm);
             return $newTerm;
        }
-
-
     }
 ?>

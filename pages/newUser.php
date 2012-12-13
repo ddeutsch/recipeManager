@@ -1,5 +1,7 @@
-﻿<?php
-session_start();
+﻿<!-- This is the page which the user will use in order to create an account on the website. -->
+
+<?php
+    session_start();
 ?>
 <!DOCTYPE html>
 
@@ -25,6 +27,7 @@ session_start();
 	}
       ?>
 
+      <!-- The log in form -->
       <form action="createUser.php" method="post">
 	  First Name: <input type="text" name="fname" /><br />
 	  Last Name: <input type="text" name="lname" /><br />

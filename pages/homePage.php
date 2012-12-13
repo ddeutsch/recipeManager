@@ -1,3 +1,5 @@
+<!-- This file displays the website's homepage after the user has already logged in. -->
+
 <?php
     session_start();
     include("userStatus.php");
@@ -27,7 +29,6 @@
     </form>
 
     <img class="center" src="../img/logo.png" usemap="#map"/>
-
     <map name="map">
         <area shape="rect" coords="0,0,235,49" alt="Home" href="homePage.php" />
     </map>
@@ -50,6 +51,7 @@
 
 	mysql_select_db($db_name, $conn);
 
+	// retrieve the user's name
 	$query = "SELECT U.FName, U.LName
 		  FROM Users U
 		  WHERE U.Username = '".$_SESSION['username']."'";

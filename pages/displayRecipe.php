@@ -1,3 +1,6 @@
+<!-- This script formats the actual recipe display. It gathers all of the information necessary to display
+from the database. The name of the recipe should be under $_POST['recipeName']. -->
+
 <?php
     session_start();
     include("userStatus.php");
@@ -12,7 +15,6 @@
     </head>
 
     <img class="center" src="../img/logo.png" usemap="#map"/>
-
     <map name="map">
         <area shape="rect" coords="0,0,235,49" alt="Home" href="homePage.php" />
     </map>
@@ -41,9 +43,7 @@
 	    mysql_select_db($db_name, $conn);
 
             // set the correct recipe here
-            //$recipe = $_SESSION['searchTerm']; // DM: Fix - Was originally -> $_POST['recipeName'];
-	    $recipe = $_POST['recipeName']; // why did you change this?
-	    
+	    $recipe = $_POST['recipeName'];
 	    
             printf("<h2>%s</h2>", ucwords($recipe));
 
@@ -54,7 +54,6 @@
 	    $result = mysql_query($query);
 
 	    $row = mysql_fetch_array($result);
-
 	    printf("<img src=\"%s\"/>", $row['ImageUrl']);
 
 	    // Recipe information

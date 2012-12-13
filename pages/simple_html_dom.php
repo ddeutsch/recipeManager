@@ -73,15 +73,21 @@ function file_get_html($url, $use_include_path = false, $context=null, $offset =
 	// We DO force the tags to be terminated.
 	$dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
 	// For sourceforge users: uncomment the next line and comment the retreive_url_contents line 2 lines down if it is not already done.
+	
+	
 	$contents = file_get_contents($url, $use_include_path, $context, $offset);
+	
 	// Paperg - use our own mechanism for getting the contents as we want to control the timeout.
 	//$contents = retrieve_url_contents($url);
 	if (empty($contents) || strlen($contents) > MAX_FILE_SIZE)
 	{
 		return false;
 	}
+	
 	// The second parameter can force the selectors to all be lowercase.
 	$dom->load($contents, $lowercase, $stripRN);
+	
+	
 	return $dom;
 }
 
@@ -1046,6 +1052,8 @@ class simple_html_dom
 		// prepare
 		$this->prepare($str, $lowercase, $stripRN, $defaultBRText, $defaultSpanText);
 		// strip out comments
+		
+		
 		$this->remove_noise("'<!--(.*?)-->'is");
 		// strip out cdata
 		$this->remove_noise("'<!\[CDATA\[(.*?)\]\]>'is", true);
@@ -1063,13 +1071,11 @@ class simple_html_dom
 		$this->remove_noise("'(<\?)(.*?)(\?>)'s", true);
 		// strip smarty scripts
 		$this->remove_noise("'(\{\w)(.*?)(\})'s", true);
-
 		// parsing
 		while ($this->parse());
 		// end
 		$this->root->_[HDOM_INFO_END] = $this->cursor;
-		$this->parse_charset();
-
+		$this->parse_charset();		
 		// make load function chainable
 		return $this;
 
@@ -1178,7 +1184,7 @@ class simple_html_dom
 		$node = new simple_html_dom_node($this);
 		++$this->cursor;
 		$node->_[HDOM_INFO_TEXT] = $s;
-		$this->link_nodes($node, false);
+		$this->link_nodes($node, false);		
 		return true;
 	}
 
@@ -1329,7 +1335,7 @@ class simple_html_dom
 			$this->char = (++$this->pos<$this->size) ? $this->doc[$this->pos] : null; // next
 			return true;
 		}
-
+		
 		$node = new simple_html_dom_node($this);
 		$node->_[HDOM_INFO_BEGIN] = $this->cursor;
 		++$this->cursor;
@@ -1394,6 +1400,7 @@ class simple_html_dom
 		$guard = 0; // prevent infinity loop
 		$space = array($this->copy_skip($this->token_blank), '', '');
 
+		
 		// attributes
 		do
 		{
@@ -1408,7 +1415,6 @@ class simple_html_dom
 				continue;
 			}
 			$guard = $this->pos;
-
 			// handle endless '<'
 			if ($this->pos>=$this->size-1 && $this->char!=='>') {
 				$node->nodetype = HDOM_TYPE_TEXT;
@@ -1418,7 +1424,6 @@ class simple_html_dom
 				$this->link_nodes($node, false);
 				return true;
 			}
-
 			// handle mismatch '<'
 			if ($this->doc[$this->pos-1]=='<') {
 				$node->nodetype = HDOM_TYPE_TEXT;
@@ -1432,15 +1437,18 @@ class simple_html_dom
 				return true;
 			}
 
-			if ($name!=='/' && $name!=='') {
+			if ($name!=='/' && $name!=='')
+			{
 				$space[1] = $this->copy_skip($this->token_blank);
 				$name = $this->restore_noise($name);
 				if ($this->lowercase) $name = strtolower($name);
-				if ($this->char==='=') {
+				if ($this->char==='=')
+				{
 					$this->char = (++$this->pos<$this->size) ? $this->doc[$this->pos] : null; // next
 					$this->parse_attr($node, $name, $space);
 				}
-				else {
+				else
+				{
 					//no value attr: nowrap, checked selected...
 					$node->_[HDOM_INFO_QUOTE][] = HDOM_QUOTE_NO;
 					$node->attr[$name] = true;
@@ -1452,7 +1460,7 @@ class simple_html_dom
 			else
 				break;
 		} while ($this->char!=='>' && $this->char!=='/');
-
+		
 		$this->link_nodes($node, true);
 		$node->_[HDOM_INFO_ENDSPACE] = $space[0];
 
@@ -1489,7 +1497,6 @@ class simple_html_dom
 		{
 			return;
 		}
-
 		$space[2] = $this->copy_skip($this->token_blank);
 		switch ($this->char) {
 			case '"':

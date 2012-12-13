@@ -1,8 +1,15 @@
+<!-- This class is responsible for parsing a search page on http://www.allrecipes.com -->
+
 <?php
     session_start();
-    //include('simple_html_dom.php');
     class AllRecipesParser
     {
+        /**
+        * This method performs the parsing of the webpage.
+        *
+        * @param (String) $url_address should be the url address of the web page to parse, i.e.,
+        * it should be the recipe page
+        */
         function parse($url_address)
         {
             $db_host = 'localhost:8888';
@@ -17,30 +24,30 @@
                 exit();
             }
             mysql_select_db($db_name, $conn);
-
+            
             $html = file_get_html($url_address);
 
-            // For  Ingredients Table
+            // Get the name of the recipe
             $recipeName = array_shift($html->find("h1"));
             $first = strrpos($recipeName, "itemprop=\"name\">") + 15;
             $last = strrpos($recipeName, "</h1>");
             $recipeName = substr($recipeName, $first + 1, $last - $first - 1);
             $recipeName = $this->cleanString($recipeName);
-
+            
+            // Check to see if we already have this recipe in the database
             $query = "SELECT COUNT(*) Count
                       FROM Recipes
                       WHERE RecipeName = '$recipeName'
                       GROUP BY RecipeName";
-
+                      
             $result = mysql_query($query);
             $row = mysql_fetch_array($result);
 
+            // if true, recipe already exists
             if ($row['Count'] > 0)
-            {
-                //echo "getting out of here!<br>";
                 return;
-            }
 
+            // find the recipe's image
             foreach($html->find('meta') as $meta)
             {
                 $image = "";
@@ -56,50 +63,44 @@
 
             }
 
-
-            // echo "<h3> Ingredients </h3>";
-
+            // create the ingredients table
             $amountArray = array();
             $nameArray = array();
             $servings = "";
             foreach($html->find('span') as $span)
             {
+                // the amount of the ingredient
                 if ($span->id == "lblIngAmount")
                 {
                   $amount = $span->plaintext;
                   array_push($amountArray,$amount);
-                  //echo "<h2>" . $amount . "</h2>";
                 }
 
+                // the name of the ingredient
                 if ($span->id == "lblIngName")
                 {
                     $name = $span->plaintext;
                     $name = $this->cleanString($name);
                     array_push($nameArray,$name);
-                    //echo "<h2>" . $name . "</h2>";
                 }
 
+                // the number of servings
                 if ($span->id =="lblYield")
                 {
                     $servings = $span->plaintext;
-                    //echo "<h2> Servings: " . $servings . "</h2>";
-
-                    // Insert Servings name into Ingredients table
                     $query = "INSERT INTO Recipes VALUES('".$recipeName. "','" .$servings."')";
                     mysql_query($query);
                 }
             }
 
+            // insert values into the Ingredients table
             for ($i=0; $i<sizeof($amountArray); $i++)
             {
-                // Insert ingredient & recipe name into Ingredients table
                 $query = "INSERT INTO Ingredients VALUES('".$recipeName. "','" .$nameArray[$i]."','" . $amountArray[$i]."')";
                 $result = mysql_query($query);
-
-                //echo $amountArray[$i] . " " . $nameArray[$i] . "<br>";
             }
 
-            // For  Instructions Table
+            // parse the instructions, numbering them starting at 1
             $allInstructions = '';
             $i = 1;
             foreach($html->find('span.plaincharacterwrap') as $instructions)
@@ -110,15 +111,17 @@
 
             $allInstructions = $this->cleanString($allInstructions);
 
-           // echo $allInstructions . "<br>";
-
             // Insert ingredient & recipe name into Ingredients table
             $query = "INSERT INTO Instructions VALUES('".$recipeName. "','" .$allInstructions."')";
             mysql_query($query);
-
-            //echo "error no: " . mysql_error() . "<br>";
         }
 
+        /**
+         * Cleans up a string to bad input. Removes any non-ASCII values and places MySQL
+         * escape characters where necessary
+         *
+         * @param (String) $string The string to clean up.
+         */
         function cleanString($string)
         {
             $newString = "";

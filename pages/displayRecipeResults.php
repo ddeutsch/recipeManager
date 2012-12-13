@@ -1,3 +1,6 @@
+<!-- This script searches the database for any recipe name that contains the search term as a substring,
+then displays the results in a form, which allows the user to select them and see the recipe contents. -->
+
 <?php
     session_start();
     include("userStatus.php");
@@ -43,12 +46,14 @@
 
 	    mysql_select_db($db_name, $conn);
 
+	    // find all of the recipes which match the searchTerm
 	    $query = "SELECT R.RecipeName
 		      FROM Recipes R
 		      WHERE R.RecipeName LIKE '%".$_SESSION['searchTerm']."%'";
 
 	    $result = mysql_query($query);
 
+	    // display the results in a form
 	    printf("<form action=\"displayRecipe.php\" method=\"post\">");
 
 	    while ($row = mysql_fetch_array($result))

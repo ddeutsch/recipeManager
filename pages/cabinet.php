@@ -1,3 +1,5 @@
+<!-- This file displays the ingredients that a user has in their cabinet. -->
+
 <?php
     session_start();
     include("userStatus.php");
@@ -44,10 +46,12 @@
 
 	mysql_select_db($db_name, $conn);
 
+	// Get all of the ingredients in the cabinet.
 	$query = "SELECT C.Ingredient
 		  FROM Cabinet C
 		  WHERE C.Username = '".$_SESSION['username']."'";
 
+	// display the results in a table format
 	printf("<table border=\"1\" align=\"center\">");
 	printf("<tr><th>Ingredient</th></tr>");
 
@@ -57,7 +61,6 @@
 	{
 	    printf("<tr><td>%s</td></tr>", $row['Ingredient']);
 	}
-
 
 	echo "</table>";
     ?>
