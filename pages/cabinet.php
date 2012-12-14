@@ -75,7 +75,7 @@
 	Add Ingredient from database: </br>
 	<select name="ingredient">
 	<?php
-	     $db_host = 'localhost:8888';
+	    $db_host = 'localhost:8888';
             $db_user = 'cs41512_recman';
             $db_pass = 'pass';
             $db_name = 'cs41512_recipe_db';
@@ -104,7 +104,33 @@
     </form>
 
     <form action="removeIngredient.php" method="post">
-	Remove Ingredient: <input type="text" name="ingredient" /><br/>
+	Remove Ingredient:<br>
+	<select name="ingredient" /><br/>
+	<?php
+	    $db_host = 'localhost:8888';
+            $db_user = 'cs41512_recman';
+            $db_pass = 'pass';
+            $db_name = 'cs41512_recipe_db';
+
+            $conn = mysql_connect($db_host, $db_user, $db_pass);
+            if (!$conn)
+            {
+                echo "Error connecting to the database in " . __FILE__;
+                exit();
+            }
+            mysql_select_db($db_name, $conn);
+
+	    $query = "SELECT DISTINCT Ingredient
+		      FROM Ingredients
+		      ORDER BY Ingredient";
+
+	    $result = mysql_query($query);
+
+	    while ($row = mysql_fetch_array($result))
+	    {
+		printf("<option value=\"%s\">%s</option>", $row['Ingredient'], $row['Ingredient']);
+	    }
+	?>
 	<input type="submit" value="Delete"/>
     </form>
 

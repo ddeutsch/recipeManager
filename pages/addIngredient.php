@@ -27,5 +27,11 @@ cabinet.php to give the illusion that a row in the ingredients table was just cr
     // perform the INSERT
     $query = "INSERT INTO Cabinet VALUES ('".$_SESSION['username']."','".$ingredient."')";
     mysql_query($query);
+    
+    // insert into Ingredients so it appears on the universal ingredient list
+    $query = "INSERT INTO Ingredients VALUES (' ', '".$ingredient."', ' ')";
+    mysql_query($query);
+        
+    echo "<a href=\"cabinet.php\">another redicrect not working</a><br>";
     header('Location: cabinet.php');
 ?>
