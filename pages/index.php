@@ -1,6 +1,11 @@
 ﻿<!-- This is the sign-in page for the website. -->
 <?php
-session_start(); // Initiate session data log
+    session_start(); // Initiate session data log
+    
+    $_SESSION['db_host'] = "localhost";
+    $_SESSION['db_user'] = "415_12_recipe";
+    $_SESSION['db_pass'] = "pass";
+    $_SESSION['db_name'] = "cs41512_recipe_db";
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +28,7 @@ session_start(); // Initiate session data log
 
     if (array_key_exists('NO_CREDS', $_SESSION))
     {
-      if ($_SESSION['NO_CREDS'])
+	if ($_SESSION['NO_CREDS'])
 	{
 	    echo "<FONT COLOR='#ff0000'> <h4> You need to enter a username and password</h4></FONT>" ;
 	    $_SESSION['NO_CREDS'] = false;

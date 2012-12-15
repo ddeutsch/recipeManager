@@ -13,7 +13,7 @@ cabinet.php to give the illusion that a row in the ingredients table was just cr
     $db_pass = 'pass';
     $db_name = 'cs41512_recipe_db';
 
-    $conn = mysql_connect($db_host, $db_user, $db_pass);
+    $conn = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass']);
     if (!$conn)
     {
 	echo "Error connecting to the database";

@@ -4,16 +4,14 @@
 -- /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
 
 -- Create a newuser for this project
-CREATE USER 'cs41512_recman'@'localhost' IDENTIFIED BY 'pass';
+CREATE USER '415_12_recipe'@'localhost' IDENTIFIED BY 'pass';
 
 -- Create dbfinal;
 CREATE database cs41512_recipe_db;
 
 -- Grant user access
-GRANT ALL ON cs41512_recipe_db.* TO 'cs41512_recman'@'localhost';
+GRANT ALL ON cs41512_recipe_db.* TO '415_12_recipe'@'localhost';
 
 -- Load up tables in db using recipes.sql
 -- \. /home/user/..../recipes.sql
 -- \. /home/user/.../procedures.sql
-
-

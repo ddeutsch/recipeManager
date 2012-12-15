@@ -4,9 +4,20 @@ to the home page. -->
 
 <?php
     session_start(); // Initiate session data log
+<<<<<<< Updated upstream
     $mysqli = new mysqli("localhost", "cs41512_recman",
 	"pass", "cs41512_recipe_db");
 
+=======
+   // include 'conf.php'; // These were giving errors
+   // include 'open.php'; // These were giving errors
+
+    //$mysqli = new mysqli("localhost", "cs41512_recman",
+	//"pass", "cs41512_recipe_db");
+    $mysqli = new mysqli($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass'], $_SESSION['db_name']);
+	
+	
+>>>>>>> Stashed changes
     if (mysqli_connect_errno())
     {
 	printf("Connect failed: %s<br>", mysqli_connect_error());
