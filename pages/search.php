@@ -54,6 +54,29 @@
           $final_recipe_urls = array();
           $final_recipe_names = array();
 
+        //$db_host = 'localhost:8888';
+        //$db_user = 'cs41512_recman';
+        //$db_pass = 'pass';
+        //$db_name = 'cs41512_recipe_db';
+        //
+        //$conn = mysql_connect($db_host, $db_user, $db_pass);
+        //if (!$conn)
+        //{
+        //    echo "Error connecting to the database in " . __FILE__;
+        //    exit();
+        //}
+        //
+        //mysql_select_db($db_name, $conn);
+        //
+        // $query = "SELECT  Images VALUES
+        //      ('".$recipe_name."','" .$image_url. "')";
+        //  }
+        //  mysql_query($query);
+        //}
+
+
+
+
           for ($idx = 0; $idx < sizeof($recipe_urls); $idx++)
           {
             if ($span_array[$idx] == "Recipe")

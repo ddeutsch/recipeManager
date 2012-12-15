@@ -33,10 +33,14 @@
         <area shape="rect" coords="0,0,235,49" alt="Home" href="homePage.php" />
     </map>
 
+    <div class="info">
+	<?php
+	    checkBadSearch(); // Display to the user that their search term was bad
+	?>
+    </div>
+
     <div class="form">
     <?
-	checkBadSearch(); // Display to the user that their search term was bad
-
 	$db_host = 'localhost:8888';
 	$db_user = 'cs41512_recman';
 	$db_pass = 'pass';
@@ -63,10 +67,13 @@
 
 	function checkBadSearch()
 	{
-	    if ($_SESSION['BAD_SEARCH'])
+	    if (array_key_exists('BAD_SEARCH', $_SESSION))
 	    {
-		echo "<FONT COLOR='#ff0000'> <h4> Bad search please try again!</h4></FONT>" ;
-		$_SESSION['BAD_SEARCH'] = false;
+		if ($_SESSION['BAD_SEARCH'])
+		{
+		    echo "<FONT COLOR='#ff0000'> <h4> Bad search please try again!</h4></FONT>" ;
+		    $_SESSION['BAD_SEARCH'] = false;
+		}
 	    }
 	}
     ?>

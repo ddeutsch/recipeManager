@@ -7,7 +7,8 @@
    */
   function checkLoggedIn($username)
   {
-    if (!isset($username))
+    echo gettype($username);
+    if (!isset($username) || gettype($username) == "NULL" )
     {
       header('Location: index.php');
     }

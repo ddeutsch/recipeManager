@@ -41,6 +41,8 @@ of that recipe's ingredients in their cabinet. -->
             if (mysqli_connect_errno())
               printf("Connect failed: %s<br>", mysqli_connect_errno());
 
+	    // CHECK FOR ANY INGREDIENTS IN THE CABINET FIRST
+
             // call MySQL procedure to find the recipes
             if ($mysqli->multi_query("CALL FindCabinetRecipes('".$_SESSION['username']."');"))
             {

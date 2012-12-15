@@ -1,9 +1,7 @@
-0. Fix the cabinet recipe search - doesn't work for me at all! - DM
-1. Fix no redirect on result CombinedSearches.php
-2. Fix checking in DB for recipes.
-3. Fix DisplayRecipe.php not showing up sometimes
-4. Fix DisplayRecipe.php result  not changing when the BACK button is used
+12/09/2012
+1. Fix the cabinet recipe search - doesn't work for me at all! - DM
+2. Fix no redirect on result CombinedSearches.php
+3. Fix checking in DB for recipes.
 
-12/10/2012
-1. Username not valid redirect back to sign-in with red error message
-2. 
+12/15/2012
+1. If I have no recipes in cabinet - don't let me search

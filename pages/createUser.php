@@ -4,9 +4,6 @@ to the home page. -->
 
 <?php
     session_start(); // Initiate session data log
-   // include 'conf.php'; // These were giving errors
-   // include 'open.php'; // These were giving errors
-
     $mysqli = new mysqli("localhost", "cs41512_recman",
 	"pass", "cs41512_recipe_db");
 
