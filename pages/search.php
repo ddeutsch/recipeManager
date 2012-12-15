@@ -45,7 +45,7 @@
             array_push($recipe_urls, $h4aHref->href);
             //echo $h4aHref->href . "<br/>";
 
-            array_push($recipe_names, $h4aHref->plaintext);
+            array_push($recipe_names, trim($h4aHref->plaintext));
             //echo $h4aHref->plaintext . "<br/>";
 
           }
@@ -54,33 +54,33 @@
           $final_recipe_urls = array();
           $final_recipe_names = array();
 
-        //$db_host = 'localhost:8888';
-        //$db_user = 'cs41512_recman';
-        //$db_pass = 'pass';
-        //$db_name = 'cs41512_recipe_db';
-        //
-        //$conn = mysql_connect($db_host, $db_user, $db_pass);
-        //if (!$conn)
-        //{
-        //    echo "Error connecting to the database in " . __FILE__;
-        //    exit();
-        //}
-        //
-        //mysql_select_db($db_name, $conn);
-        //
-        // $query = "SELECT  Images VALUES
-        //      ('".$recipe_name."','" .$image_url. "')";
-        //  }
-        //  mysql_query($query);
-        //}
-
-
-
-
-          for ($idx = 0; $idx < sizeof($recipe_urls); $idx++)
+          $conn = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass']);
+          if (!$conn)
           {
-            if ($span_array[$idx] == "Recipe")
+              echo "Error connecting to the database in " . __FILE__;
+              exit();
+          }
+
+          mysql_select_db($_SESSION['db_name'], $conn);
+
+          $recipe_names = array_unique($recipe_names); // Make array unique
+
+          foreach(array_keys($recipe_names) as $idx)
+          {
+
+        //  for ($idx = 0; $idx < sizeof($recipe_urls); $idx++)
+        //  {
+            $query = "SELECT COUNT(R.RecipeName) AS cnt
+                      FROM Recipes R
+                      WHERE RecipeName = '$recipe_names[$idx]'
+                      GROUP BY RecipeName";
+
+            $result = mysql_query($query);
+            $row = mysql_fetch_array($result);
+
+            if ($span_array[$idx] == "Recipe" && $row['cnt'] != 1)
             {
+              //echo "I will add here! <br/>";
               array_push($final_recipe_urls, $recipe_urls[$idx]);
               array_push($final_recipe_names, $recipe_names[$idx]);
               //echo "Name =" . $recipe_names[$idx] . " ====> Url = " .$recipe_urls[$idx]."<br/>";
@@ -94,7 +94,7 @@
           {
             //echo "Idx = ".$idx. "URL = " . $final_recipe_urls[$idx] . "<br/>";
             $parseObj = new MyRecipesParser;
-            $var = $parseObj->parseSearch($recipe_urls[$idx], $recipe_names[$idx]);
+            $var = $parseObj->parseSearch($final_recipe_urls[$idx], $final_recipe_names[$idx]);
           }
 
          // echo "Im here!";

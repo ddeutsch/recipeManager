@@ -28,6 +28,8 @@ session_start();
       function parseSearch($url_address, $recipe_name, $verbose = false)
       {
 
+        $recipe_name = trim($recipe_name);
+
         $db_host = 'localhost:8888';
         $db_user = 'cs41512_recman';
         $db_pass = 'pass';
@@ -91,16 +93,16 @@ session_start();
           if ($span->itemprop =="yield")
           {
             $servings = $span;
-          // Insert Servings name into Ingredients table
-          $query = "INSERT INTO Recipes VALUES
-                ('".$recipe_name. "','" .$servings->plaintext."')";
-          mysql_query($query);
+            // Insert Servings name into Ingredients table
+            $query = "INSERT INTO Recipes VALUES
+                  ('".$recipe_name. "','" .$servings->plaintext."')";
+            mysql_query($query);
 
-          // Add image to DB
-          $query = "INSERT INTO Images VALUES
-              ('".$recipe_name."','" .$image_url. "')";
+            // Add image to DB
+            $query = "INSERT INTO Images VALUES
+                ('".$recipe_name."','" .$image_url. "')";
+            mysql_query($query);
           }
-          mysql_query($query);
         }
 
         // echo "<br> Serving = $servings <br><br>";
