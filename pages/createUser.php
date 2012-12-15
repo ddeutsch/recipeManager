@@ -4,9 +4,10 @@ to the home page. -->
 
 <?php
     session_start(); // Initiate session data log
-//    $mysqli = new mysqli("localhost", "cs41512_recman",
-//	"pass", "cs41512_recipe_db");
-
+    
+    //$mysqli = new mysqli("localhost", "415_12_recipe",
+	//"pass", "cs41512_recipe_db");
+	
     $mysqli = new mysqli($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass'], $_SESSION['db_name']);
 	
     if (mysqli_connect_errno())
