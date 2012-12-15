@@ -1,8 +1,8 @@
 <?php
 session_start(); // Initiate session data log
 
-include 'conf.php';
-include 'open.php';
+//include 'conf.php';
+//include 'open.php';
 
 $mysqli = new mysqli("localhost", "cs41512_recman",
     "pass", "cs41512_recipe_db");
@@ -20,7 +20,11 @@ $password = sha1($_POST["password"]);
 if ($mysqli->multi_query("CALL ValidateUser('".$username."','".$password."');"))
 {
     if (empty($username) || empty($password))
-	printf("Error! You need to enter a username and password");
+    {
+	$_SESSION['NO_CREDS'] = true; // NO Credentials provided
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	//printf("Error! You need to enter a username and password");
+    }
     else
     {
 	do
@@ -31,7 +35,11 @@ if ($mysqli->multi_query("CALL ValidateUser('".$username."','".$password."');"))
 
 		# length == 1 if Error Message
 		if (count($finfo) == 1)
-		    printf("Sorry, invalid username or password");
+		{
+		    $_SESSION['WRONG_CREDS'] = true; // Credentials are incorrect
+		    header('Location: ' . $_SERVER['HTTP_REFERER']);
+		    //printf("Sorry, invalid username or password");
+		}
 		else
 		{
 		    //$mysqli->multi_query("CALL ChangeCurrentUser('".$username."')");

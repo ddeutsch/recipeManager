@@ -4,25 +4,25 @@ to the home page. -->
 
 <?php
     session_start(); // Initiate session data log
-    include 'conf.php';
-    include 'open.php';
-    
+   // include 'conf.php'; // These were giving errors
+   // include 'open.php'; // These were giving errors
+
     $mysqli = new mysqli("localhost", "cs41512_recman",
 	"pass", "cs41512_recipe_db");
-    
+
     if (mysqli_connect_errno())
     {
 	printf("Connect failed: %s<br>", mysqli_connect_error());
 	exit();
     }
-    
+
     $fname = $_POST["fname"];
     $lname = $_POST["lname"];
     $username = $_POST["username"];
     $password = sha1($_POST["password"]);
-    
+
     $_SESSION['username'] = $username; // store username in session data
-    
+
     if ($mysqli->multi_query("CALL CreateUser('".$username."','".$password."', '".$fname."', '".$lname."');"))
     {
 	do
@@ -30,7 +30,7 @@ to the home page. -->
 	    if ($result = $mysqli->store_result())
 	    {
 		$finfo = $result->fetch_fields();
-    
+
 		# length == 1 if Error Message
 		if (count($finfo) == 1)
 		{
@@ -44,7 +44,7 @@ to the home page. -->
 		$result->close();
 	    }
 	} while ($mysqli->next_result());
-    
+
     }
     else
 	printf("<br>Error: %s\n", $mysqli->error);

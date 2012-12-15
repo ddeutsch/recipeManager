@@ -15,16 +15,20 @@
    <img class="center" src="../img/logo.png" usemap="#map"/>
 
     <map name="map">
-        <area shape="rect" coords="0,0,235,49" alt="Home" href="index.html" />
+        <area shape="rect" coords="0,0,235,49" alt="Home" href="index.php" />
     </map>
     <br>
     <div class="form">
       <?php
-      if ($_SESSION['DUPLICATE_USERNAME'])
-	{
-	  echo "<FONT COLOR='#ff0000'> <h3> Sorry, that username is already in use!</h3></FONT>" ;
-	  $_SESSION['DUPLICATE_USERNAME'] = false;
-	}
+
+      if (array_key_exists('DUPLICATE_USERNAME', $_SESSION))
+      {
+	if ($_SESSION['DUPLICATE_USERNAME'])
+	  {
+	    echo "<FONT COLOR='#ff0000'> <h3> Sorry, that username is already in use!</h3></FONT>" ;
+	    $_SESSION['DUPLICATE_USERNAME'] = false;
+	  }
+      }
       ?>
 
       <!-- The log in form -->

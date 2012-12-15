@@ -7,6 +7,8 @@ CREATE TABLE Users
     LName VARCHAR(16)
 );
 
+INSERT INTO Users VALUES ('Guest','Guest','Guest','Guest'); -- Used to initialize. Not accessible to anyone
+
 --#We don't use this table anymore
 --#DROP TABLE IF EXISTS CurrentUser;
 

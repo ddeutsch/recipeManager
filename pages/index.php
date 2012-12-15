@@ -1,4 +1,7 @@
 ﻿<!-- This is the sign-in page for the website. -->
+<?php
+session_start(); // Initiate session data log
+?>
 
 <!DOCTYPE html>
 
@@ -12,10 +15,33 @@
     <img src="../img/logo.png" usemap="#map" class="center"/>
 
     <map name="map">
-        <area shape="rect" coords="0,0,235,49" alt="Home" href="index.html" />
+        <area shape="rect" coords="0,0,235,49" alt="Home" href="index.php" />
     </map>
 
-    </br>
+    <div class="info">
+    <?php
+
+    if (array_key_exists('NO_CREDS', $_SESSION))
+    {
+      if ($_SESSION['NO_CREDS'])
+	{
+	    echo "<FONT COLOR='#ff0000'> <h4> You need to enter a username and password</h4></FONT>" ;
+	    $_SESSION['NO_CREDS'] = false;
+	}
+    }
+
+    if (array_key_exists('WRONG_CREDS', $_SESSION))
+    {
+      if ($_SESSION['WRONG_CREDS'])
+	{
+	    echo "<FONT COLOR='#ff0000'> <h4> Invalid username or password!</h4></FONT>" ;
+	    $_SESSION['WRONG_CREDS'] = false;
+	}
+    }
+    ?>
+    </div>
+
+    <br/>
     <div class="form">
     <form action="validateUser.php" method="post" class="center">
         Username: <input type="text" name="username" /><br />
