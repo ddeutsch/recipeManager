@@ -32,10 +32,6 @@
     <h1>Your cabinet:</h1>
 
     <?php
-	$db_host = 'localhost:8888';
-	$db_user = 'cs41512_recman';
-	$db_pass = 'pass';
-	$db_name = 'cs41512_recipe_db';
 
 	$conn = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass']);
 	if (!$conn)
@@ -44,7 +40,7 @@
 	    exit();
 	}
 
-	mysql_select_db($db_name, $conn);
+	mysql_select_db($_SESSION['db_name'], $conn);
 
 	// Get all of the ingredients in the cabinet.
 	$query = "SELECT C.Ingredient
@@ -75,18 +71,13 @@
 	Add Ingredient from database: </br>
 	<select name="ingredient">
 	<?php
-	    $db_host = 'localhost:8888';
-            $db_user = 'cs41512_recman';
-            $db_pass = 'pass';
-            $db_name = 'cs41512_recipe_db';
-
             $conn = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass']);
             if (!$conn)
             {
                 echo "Error connecting to the database in " . __FILE__;
                 exit();
             }
-            mysql_select_db($db_name, $conn);
+            mysql_select_db($_SESSION['db_name'], $conn);
 
 	    $query = "SELECT DISTINCT Ingredient
 		      FROM Ingredients
@@ -107,10 +98,6 @@
 	Remove Ingredient:<br>
 	<select name="ingredient" /><br/>
 	<?php
-	    $db_host = 'localhost:8888';
-            $db_user = 'cs41512_recman';
-            $db_pass = 'pass';
-            $db_name = 'cs41512_recipe_db';
 
             $conn = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass']);
             if (!$conn)
@@ -118,7 +105,7 @@
                 echo "Error connecting to the database in " . __FILE__;
                 exit();
             }
-            mysql_select_db($db_name, $conn);
+            mysql_select_db($_SESSION['db_name'], $conn);
 
 	    $query = "SELECT DISTINCT Ingredient
 		      FROM Ingredients

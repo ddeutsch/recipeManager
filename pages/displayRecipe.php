@@ -28,11 +28,6 @@ from the database. The name of the recipe should be under $_POST['recipeName']. 
 
     <div class="form">
         <?php
-	    $db_host = 'localhost:8888';
-	    $db_user = 'cs41512_recman';
-	    $db_pass = 'pass';
-	    $db_name = 'cs41512_recipe_db';
-
 	    $conn = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass']);
 	    if (!$conn)
 	    {
@@ -40,11 +35,11 @@ from the database. The name of the recipe should be under $_POST['recipeName']. 
 		exit();
 	    }
 
-	    mysql_select_db($db_name, $conn);
+	    mysql_select_db($_SESSION['db_name'], $conn);
 
             // set the correct recipe here
 	    $recipe = $_POST['recipeName'];
-	    
+
             printf("<h2>%s</h2>", ucwords($recipe));
 
 	    // Image

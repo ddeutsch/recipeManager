@@ -31,12 +31,7 @@ of that recipe's ingredients in their cabinet. -->
     <h3>Search Results:</h3>
 
 	<?php
-	    $db_host = 'localhost:8888';
-	    $db_user = 'cs41512_recman';
-	    $db_pass = 'pass';
-	    $db_name = 'cs41512_recipe_db';
-
-            $mysqli = new mysqli("localhost", $db_user, $db_pass, $db_name);
+            $mysqli = new mysqli($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass'], $_SESSION['db_name']);
 
             if (mysqli_connect_errno())
               printf("Connect failed: %s<br>", mysqli_connect_errno());

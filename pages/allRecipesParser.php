@@ -12,19 +12,15 @@
         */
         function parse($url_address)
         {
-            $db_host = 'localhost:8888';
-            $db_user = 'cs41512_recman';
-            $db_pass = 'pass';
-            $db_name = 'cs41512_recipe_db';
-
+            
             $conn = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass']);
             if (!$conn)
             {
                 echo "Error connecting to the database in " . __FILE__;
                 exit();
             }
-            mysql_select_db($db_name, $conn);
-            
+            mysql_select_db($_SESSION['db_name'], $conn);
+
             $html = file_get_html($url_address);
 
             // Get the name of the recipe
@@ -33,13 +29,13 @@
             $last = strrpos($recipeName, "</h1>");
             $recipeName = substr($recipeName, $first + 1, $last - $first - 1);
             $recipeName = $this->cleanString($recipeName);
-            
+
             // Check to see if we already have this recipe in the database
             $query = "SELECT COUNT(*) Count
                       FROM Recipes
                       WHERE RecipeName = '$recipeName'
                       GROUP BY RecipeName";
-                      
+
             $result = mysql_query($query);
             $row = mysql_fetch_array($result);
 

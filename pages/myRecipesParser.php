@@ -30,11 +30,6 @@ session_start();
 
         $recipe_name = trim($recipe_name);
 
-        $db_host = 'localhost:8888';
-        $db_user = 'cs41512_recman';
-        $db_pass = 'pass';
-        $db_name = 'cs41512_recipe_db';
-
         $conn = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass']);
         if (!$conn)
         {
@@ -42,7 +37,7 @@ session_start();
             exit();
         }
 
-        mysql_select_db($db_name, $conn);
+        mysql_select_db($_SESSION['db_name'], $conn);
 
         $html = file_get_html($url_address);
 
@@ -155,11 +150,6 @@ session_start();
         function parse($url_address, $image_url, $verbose = false)
       {
 
-        $db_host = 'localhost:8888';
-        $db_user = 'cs41512_recman';
-        $db_pass = 'pass';
-        $db_name = 'cs41512_recipe_db';
-
         $conn = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass']);
         if (!$conn)
         {
@@ -167,7 +157,7 @@ session_start();
             exit();
         }
 
-        mysql_select_db($db_name, $conn);
+        mysql_select_db($_SESSION['db_name'], $conn);
 
           $html = file_get_html($url_address);
 
