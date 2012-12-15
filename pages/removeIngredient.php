@@ -25,7 +25,7 @@ will redirect back to that page after the ingredient has been removed. -->
 
     $query = "DELETE FROM Cabinet WHERE Username = '".$_SESSION['username']."' AND Ingredient ='".$ingredient."'";
     mysql_query($query);
-    echo mysql_errno() . "<br>";
+
     echo "<a href=\"cabinet.php\">another redirect not working</a><br>";
     header('Location: cabinet.php');
 ?>
