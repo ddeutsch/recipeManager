@@ -106,7 +106,7 @@ session_start();
           {
           // Insert ingredient & recipe name into Ingredients table
           $query = "INSERT INTO Ingredients VALUES
-                ('".$recipe_name. "','" .$nameArray[$i]->plaintext."','" . $amountArray[$i]->plaintext."')";
+                ('".$recipe_name. "','" .trim($nameArray[$i]->plaintext)."','" . $amountArray[$i]->plaintext."')";
           mysql_query($query);
               if ($verbose)
               {
@@ -171,9 +171,9 @@ session_start();
                 echo "<h3> Ingredients </h3>";
             }
 
-          $amountArray = array();
-          $nameArray = array();
-          $servings = "";
+          $nameArray = array(); // Array to hold the name of the ingredients
+          $amountArray = array(); // Array to hold the amount of each corresponding ingredient
+          $servings = ""; // String holding the number of servings possible
           foreach($html->find('span') as $span)
           {
             if ($span->itemprop == "amount")
@@ -198,7 +198,7 @@ session_start();
 
             // Add image to DB
             $query = "INSERT INTO Images VALUES
-                ('".$recipeName."','" .$image_url. "')";
+                ('".$recipeName."','" .trim($image_url). "')";
             }
             mysql_query($query);
           }

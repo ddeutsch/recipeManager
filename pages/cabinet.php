@@ -107,9 +107,9 @@
             }
             mysql_select_db($_SESSION['db_name'], $conn);
 
-	    $query = "SELECT DISTINCT Ingredient
-		      FROM Ingredients
-		      ORDER BY Ingredient";
+	    $query = "SELECT C.Ingredient
+		    FROM Cabinet C
+		      WHERE C.Username = '".$_SESSION['username'] ."';";
 
 	    $result = mysql_query($query);
 
