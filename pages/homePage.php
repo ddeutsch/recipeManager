@@ -36,6 +36,7 @@
     <div class="info">
 	<?php
 	    checkBadSearch(); // Display to the user that their search term was bad
+	    checkEmptyCabinet(); // Display a message a cabinet search was attempted w no cabinet contents
 	?>
     </div>
 
@@ -60,6 +61,10 @@
 
 	printf("<h3>Welcome, %s %s!</h3>", $row['FName'], $row['LName']);
 
+	/**
+	 * Display a warning when the users passes
+	 * in a search terms that returns no results
+	 */
 	function checkBadSearch()
 	{
 	    if (array_key_exists('BAD_SEARCH', $_SESSION))
@@ -71,6 +76,25 @@
 		}
 	    }
 	}
+
+	/**
+	 * Display a warning for a cabinet search
+	 * when the users cabinet is empty
+	 */
+	function checkEmptyCabinet()
+	{
+	    if (array_key_exists('CABINET_EMPTY',$_SESSION))
+	    {
+		if ($_SESSION['CABINET_EMPTY'])
+		{
+		   echo "<FONT COLOR='#ff0000'> <h4> Your Cabinet must have at least 1 ingredient for a cabinet search! </h4></FONT>" ;
+		    $_SESSION['CABINET_EMPTY'] = false;
+		}
+	    }
+
+	}
+
+
     ?>
 
     <!--<form action="search2.php" method="post">-->

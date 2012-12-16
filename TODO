@@ -2,6 +2,4 @@
 2. Fix no redirect on result CombinedSearches.php
 
 12/15/2012
-1. If I have no recipes in cabinet - don't let me search
-2. Delete ingredients from my cabinet only not entire DB
-3. Search by cabinet doesn't work for me
+1. Search by cabinet doesn't work for me

@@ -34,7 +34,18 @@ of that recipe's ingredients in their cabinet. -->
             $mysqli = new mysqli($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass'], $_SESSION['db_name']);
 
             if (mysqli_connect_errno())
-              printf("Connect failed: %s<br>", mysqli_connect_errno());
+		printf("Connect failed: %s<br>", mysqli_connect_errno());
+
+		$query = "SELECT COUNT(*) cnt FROM Cabinet C WHERE
+			C.Username = '" .$_SESSION['username'] . "'
+			GROUP BY C.Username;";
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+	      if (!$row['cnt'] > 0)
+	      {
+		$_SESSION['CABINET_EMPTY'] = true;
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
+	      }
 
 	    // CHECK FOR ANY INGREDIENTS IN THE CABINET FIRST
 
