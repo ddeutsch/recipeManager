@@ -8,7 +8,7 @@ and starts running them. -->
   include ("search2.php");
   include ("myRecipesParser.php");
   include("simple_html_dom.php");
-  include("AllRecipesParser.php");
+  include("allRecipesParser.php");
 
   checkLoggedIn($_SESSION['username']); // Make sure the user is logged in
   $_SESSION['searchTerm'] = $_POST['recipeName'];
