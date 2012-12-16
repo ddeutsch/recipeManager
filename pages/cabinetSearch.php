@@ -36,18 +36,22 @@ of that recipe's ingredients in their cabinet. -->
             if (mysqli_connect_errno())
 		printf("Connect failed: %s<br>", mysqli_connect_errno());
 
-		$query = "SELECT COUNT(*) cnt FROM Cabinet C WHERE
-			C.Username = '" .$_SESSION['username'] . "'
-			GROUP BY C.Username;";
-		$result = mysql_query($query);
+		$query = "SELECT COUNT(Ingredient) AS cnt
+			FROM Cabinet WHERE
+			Username = '" .$_SESSION['username']."'
+	    		GROUP BY Username";
+
+		$mysqli->multi_query($query);
+		$result = $mysqli->store_result();
+
 		$row = mysql_fetch_array($result);
-	      if (!$row['cnt'] > 0)
+		$row = $result->fetch_row();
+
+	      if ($row < 1)
 	      {
 		$_SESSION['CABINET_EMPTY'] = true;
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	      }
-
-	    // CHECK FOR ANY INGREDIENTS IN THE CABINET FIRST
 
             // call MySQL procedure to find the recipes
             if ($mysqli->multi_query("CALL FindCabinetRecipes('".$_SESSION['username']."');"))
