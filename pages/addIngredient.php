@@ -27,6 +27,6 @@ cabinet.php to give the illusion that a row in the ingredients table was just cr
     $query = "INSERT INTO Ingredients VALUES (' ', '".$ingredient."', ' ')";
     mysql_query($query);
 
-    echo "<a href=\"cabinet.php\">another redicrect not working</a><br>";
+    echo "<h2><a href=\"cabinet.php\">Redirect back to edit ingredients</a></h2>";
     header('Location: cabinet.php');
 ?>
