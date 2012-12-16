@@ -22,7 +22,7 @@ of that recipe's ingredients in their cabinet. -->
     <input type="submit" value="Sign Out"/>
     </form>
 
-    <img src="../img/logo.png" usemap="#map"/>
+    <img class="center" src="../img/logo.png" usemap="#map"/>
 
     <map name="map">
         <area shape="rect" coords="0,0,235,49" alt="Home" href="homePage.php" />
