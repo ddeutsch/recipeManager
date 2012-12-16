@@ -2,7 +2,7 @@
 <?php
     session_start(); // Initiate session data log
 
-    $_SESSION['db_host'] = "dbase.cs.jhu.edu";
+    $_SESSION['db_host'] = "localhost";
     $_SESSION['db_user'] = "415_12_recipe";
     $_SESSION['db_pass'] = "pass";
     $_SESSION['db_name'] = "cs41512_recipe_db";
