@@ -44,7 +44,7 @@ then displays the results in a form, which allows the user to select them and se
 	    // find all of the recipes which match the searchTerm
 	    $query = "SELECT R.RecipeName
 		      FROM Recipes R
-		      WHERE R.RecipeName LIKE '%".$_SESSION['searchTerm']."%'";
+		      WHERE R.RecipeName LIKE '%".str_replace(" ","%", $_SESSION['searchTerm'])."%'"; // DM - Edit for better regex matching
 
 	    $result = mysql_query($query);
 
